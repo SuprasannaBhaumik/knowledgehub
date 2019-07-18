@@ -1,0 +1,10 @@
+
+.parentContainer{
+	border: '1px solid black';
+	margin-left: '30%'; 
+	margin-top: '20%';
+	margin-right: '30%'; 
+	padding-top: '1%';
+	padding-bottom: '1%';
+	padding-left: '10%';
+}
