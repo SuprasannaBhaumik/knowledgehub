@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './application/view/App';
 import './App.css';
 import {Provider} from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose  } from 'redux';
 import {createLogger} from 'redux-logger';
 import rootReducer from './application/reducers/RootReducer';
 
@@ -11,7 +11,9 @@ import rootReducer from './application/reducers/RootReducer';
 
 //declare the store variable using the create store method that takes rootreducer and middleware
 // middleware examples are thunk, createlogger
-const store = createStore( rootReducer, applyMiddleware(createLogger()))
+const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const store = createStore( rootReducer, composeEnhancers(applyMiddleware(createLogger())));
 
 ReactDOM.render(
 	
