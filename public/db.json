@@ -1,0 +1,18 @@
+{
+  "employees": [
+    {
+      "id": "supra",
+      "first_name": "Suprasanna",
+      "last_name": "Bhaumik",
+      "email": "suprasanna.bhaumik86@gmail.com",
+	  "role":"SUPER_ADMIN"
+    },
+    {
+      "id": 2,
+      "first_name": "Sayantani",
+      "last_name": "Mondal",
+      "email": "sayantanimo@gmail.com",
+	  "role":"USER"
+    }
+  ]
+}
