@@ -73,15 +73,37 @@ class Register extends React.Component<Props, InternalState>{
 		const {registrationStatus} = this.props;
 		return (
 			<>
-			{ !registrationStatus && <div>
-				<input type="text" value={this.state.first_name} onChange={this.handleFirstName}/>
-				<input type="text" value={this.state.last_name} onChange={this.handleLastName}/>
-				<input type="text" value={this.state.email} onChange={this.handleEmail}/>
-				<select onChange={this.handleRole}>
-					<option value="ADMIN">ADMIN</option>
-					<option value="USER">USER</option>
-				</select>
-				<input type="button" name="Submit" onClick={this.handleRegistration}/>
+			{ !registrationStatus && 
+			<div>
+				<div>
+					<div>
+						<div><span>Enter First Name : </span></div>
+						<div><span>Enter Last Name : </span></div>
+						<div><span>Enter Email : </span></div>
+						<div><span>Enter Role : </span></div>
+					</div>
+					<div style={{float:"right"}}>
+						<div>
+							<input type="text" value={this.state.first_name} onChange={this.handleFirstName}/>
+						</div>
+						<div>
+							<input type="text" value={this.state.last_name} onChange={this.handleLastName}/>
+						</div>
+						<div>
+							<input type="text" value={this.state.email} onChange={this.handleEmail}/>
+						</div>
+						<div>
+							<select onChange={this.handleRole}>
+								<option value="ADMIN">ADMIN</option>
+								<option value="USER">USER</option>
+							</select>
+						</div>
+
+					</div>
+				</div>
+				<div>
+					<input type="button" name="Submit" onClick={this.handleRegistration}/>
+				</div>
 			</div> }
 
 			{ registrationStatus && <span>User is registered successfully!!!</span>}
