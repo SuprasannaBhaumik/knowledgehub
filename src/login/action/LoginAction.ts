@@ -10,6 +10,5 @@ export type LoginAction =
     
 
 export function validateLoginAction(payload: UserDetails): LoginAction {
-	console.log(payload);
     return { type: LoginActionTypes.LMS_LOGIN_ACTION, payload};
 };

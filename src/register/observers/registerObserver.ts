@@ -1,0 +1,23 @@
+import { User } from "../../model/User";
+import axios from 'axios';
+import { registrationSuccessfull, registrationFailed, RegistrationAction }from '../action/RegisterAction';
+const headers = {
+   'Content-Type': 'application/json'
+}
+
+export async function registerNewUserObserver(user: User, dispatch: any) {
+	return await axios.post('http://localhost:9000/employees', user, { headers: headers })
+		.then((response: any) => {
+			const employee = response.data;
+			if(employee.id) {
+				dispatch(registrationSuccessfull(true));
+			} else {
+				dispatch(registrationFailed(false));
+			}
+		})
+		.catch((error: any) => {
+			console.log(error);
+			dispatch(registrationFailed(false));
+		});
+    
+}

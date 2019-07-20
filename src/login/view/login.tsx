@@ -93,6 +93,8 @@ class Login extends React.Component<Props, InternalState> {
 					</div>
 				</div>
 
+
+				{profile }
 				<span> Welcome here {profile.email}</span>
 			</>
 		);

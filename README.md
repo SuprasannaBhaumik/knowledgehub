@@ -13,7 +13,7 @@
 
 3. Run the below command from the json-server folder
 	
-	**json-server --watch db.json --port 9000**
+	**json-server --watch db.json --port <yourPort>**
 
 4. Now you can test all the apis :
 	http://localhost:9000/employees
