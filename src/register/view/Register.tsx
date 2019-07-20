@@ -3,6 +3,7 @@ import {User} from '../../model/User';
 
 interface Props {
 	registerUser(user: User): void;
+	registrationStatus: boolean;
 }
 
 interface InternalState{
@@ -68,8 +69,11 @@ class Register extends React.Component<Props, InternalState>{
 	}
 
 	render() {
+
+		const {registrationStatus} = this.props;
 		return (
-			<div>
+			<>
+			{ !registrationStatus && <div>
 				<input type="text" value={this.state.first_name} onChange={this.handleFirstName}/>
 				<input type="text" value={this.state.last_name} onChange={this.handleLastName}/>
 				<input type="text" value={this.state.email} onChange={this.handleEmail}/>
@@ -78,7 +82,11 @@ class Register extends React.Component<Props, InternalState>{
 					<option value="USER">USER</option>
 				</select>
 				<input type="button" name="Submit" onClick={this.handleRegistration}/>
-			</div>
+			</div> }
+
+			{ registrationStatus && <span>User is registered successfully!!!</span>}
+
+			</>
 		);
 	}
 
