@@ -1,6 +1,6 @@
 import React from 'react';
 import {User} from '../../model/User';
-
+import {Link} from 'react-router-dom';
 interface Props {
 	registerUser(user: User): void;
 	registrationStatus: boolean;
@@ -74,15 +74,15 @@ class Register extends React.Component<Props, InternalState>{
 		return (
 			<>
 			{ !registrationStatus && 
-			<div>
-				<div>
-					<div>
-						<div><span>Enter First Name : </span></div>
-						<div><span>Enter Last Name : </span></div>
-						<div><span>Enter Email : </span></div>
-						<div><span>Enter Role : </span></div>
+			<div style={{paddingTop:'10%'}}>
+				<div style={{border: '1px solid black', display: 'flex', justifyContent:'center'}}>
+					<div style={{paddingTop:'20px', paddingBottom:'20px',paddingRight:'5px'}}>
+						<div className={''}><span>Enter First Name</span></div>
+						<div><span>Enter Last Name</span></div>
+						<div><span>Enter Email</span></div>
+						<div><span>Enter Role</span></div>
 					</div>
-					<div style={{float:"right"}}>
+					<div style={{paddingTop:'20px',paddingBottom:'20px',paddingLeft:'5px'}}>
 						<div>
 							<input type="text" value={this.state.first_name} onChange={this.handleFirstName}/>
 						</div>
@@ -106,7 +106,16 @@ class Register extends React.Component<Props, InternalState>{
 				</div>
 			</div> }
 
-			{ registrationStatus && <span>User is registered successfully!!!</span>}
+			{ registrationStatus &&
+				<> 
+					<p>User is registered successfully!!!</p>
+					<p>
+						<span>Please </span>
+						<Link to="/login">login</Link>
+						<span> to the application</span>
+					</p>
+
+				</>}
 
 			</>
 		);

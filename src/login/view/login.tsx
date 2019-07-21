@@ -1,6 +1,9 @@
 import React from 'react';
 import { UserDetails } from '../model/UserDetails';
 import { Profile } from '../../application/model/Profile';
+import { Redirect, Route, Switch } from 'react-router-dom';
+import { RegisterContainer } from '../../register/view/RegisterContainer';
+import { LoginContainer } from '../../login/view/LoginContainer';
 
 interface Props {
 	profile: Profile;
@@ -10,6 +13,7 @@ interface Props {
 interface InternalState{
 	username: string;
 	password: string;
+	registerClicked: boolean;
 }
 
 class Login extends React.Component<Props, InternalState> {
@@ -18,14 +22,22 @@ class Login extends React.Component<Props, InternalState> {
 		super(props);
 		this.state = {
 			username: '',
-			password: ''
+			password: '',
+			registerClicked: false
 		}
 		this.handleInput = this.handleInput.bind(this);
 		this.handlePassword = this.handlePassword.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
+		this.handleRegister = this.handleRegister.bind(this);
 
 	}
 
+	handleRegister = (event: any) => {
+		console.log('register is clicked');
+		this.setState({
+			registerClicked: true
+		})
+	}
 
 	handleInput = (event: any) => {
 		this.setState({
@@ -51,8 +63,10 @@ class Login extends React.Component<Props, InternalState> {
 	render(){
 
 		const { profile } = this.props;
+		const { registerClicked } = this.state;
 		return (
 			<>
+			    { !registerClicked && 
 				<div style={{
 						border: '1px solid black',
 						marginLeft: '30%', 
@@ -88,14 +102,14 @@ class Login extends React.Component<Props, InternalState> {
 							<input type="button" value="Login" onClick={this.handleSubmit}/>
 						</div>
 						<div>
-							<input type="button" value="Register"/>
+							<input type="button" value="Register" onClick={this.handleRegister}/>
 						</div>
 					</div>
 				</div>
+				}
 
-
-				{profile }
-				<span> Welcome here {profile.email}</span>
+				{ registerClicked && <Redirect to="/register" />}
+				
 			</>
 		);
 	}

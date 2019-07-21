@@ -7,6 +7,10 @@ import { createStore, applyMiddleware, compose  } from 'redux';
 import {createLogger} from 'redux-logger';
 import rootReducer from './application/reducers/RootReducer';
 import thunk from 'redux-thunk';
+import { BrowserRouter, Route, Link } from 'react-router-dom';
+import { LoginContainer } from './login/view/LoginContainer';
+import { RegisterContainer } from './register/view/RegisterContainer';
+import { HomeContainer } from './home/view/HomeContainer';
 
 //import the provider from the redux library
 
@@ -17,8 +21,12 @@ const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ||
 const store = createStore( rootReducer, composeEnhancers(applyMiddleware(createLogger(), thunk)));
 
 ReactDOM.render(
-	
-	<Provider store={store}>
-		<App />
-	</Provider>, 
+	<BrowserRouter>
+		<Provider store={store}>
+			<Route path="/" component={App} />
+			<Route path="/login" exact component={LoginContainer} />
+			<Route path="/register" exact component={RegisterContainer} />
+			<Route path="/home" exact component={HomeContainer}/>
+		</Provider>
+	</BrowserRouter>, 
 	document.getElementById('root'));
