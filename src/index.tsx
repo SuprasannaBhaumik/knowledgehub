@@ -23,7 +23,7 @@ const store = createStore( rootReducer, composeEnhancers(applyMiddleware(createL
 ReactDOM.render(
 	<BrowserRouter>
 		<Provider store={store}>
-			<Route path="/" component={App} />
+			<Route path="/" exact component={App} />
 			<Route path="/login" exact component={LoginContainer} />
 			<Route path="/register" exact component={RegisterContainer} />
 			<Route path="/home" exact component={HomeContainer}/>
