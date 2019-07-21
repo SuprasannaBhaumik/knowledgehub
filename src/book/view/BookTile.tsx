@@ -24,10 +24,10 @@ class BookTile extends React.Component<Props, InternalState> {
 		const {author, title, isbn, description, genre } = this.props;
 
 		return (
-			<div style={{height: '30vh', display:'flex', justifyContent:'center' }}>
+			<div style={{height: '20vh', display:'flex', justifyContent:'center' }}>
 				<div style = {{flex: '1', height: '20px'}}/>
-				<div style = {{flex: '3', backgroundColor:'#E5EFF9', display:'flex'}}>
-					<div style={{flex:'2'}}>1</div>
+				<div style = {{flex: '3', display:'flex', borderRadius: '20px', boxShadow: '0 0 12px #b3cccc'}}>
+					<div style={{flex:'2'}}>Book thumbnail here</div>
 					<div style={{flex:'4', display:'flex', flexDirection:'column', marginTop: '10px' }}>
 						<div style={{flex:'1', fontSize: '23px'}}>
 							<span>{title}Book Name</span>
@@ -42,13 +42,24 @@ class BookTile extends React.Component<Props, InternalState> {
 					<div style={{flex:'3', display:'flex', flexDirection: 'column'}}>
 						<div style={{flex:'1', display:'flex', flexDirection: 'row', marginTop: '10px', justifyContent: 'center'}}>
 							<div>
-								<img style={{width: '45px', height: '45px', cursor: 'pointer'}} src={process.env.PUBLIC_URL + '/images/addBook.png'} />
+								<img style={{width: '45px', height: '45px', cursor: 'pointer'}} 
+									 src={process.env.PUBLIC_URL + '/images/addBook.png'} 
+									 title='Add Book'
+								/>
 							</div>
 							<div>
-								<img style={{width: '45px', height: '45px', cursor: 'pointer'}} src={process.env.PUBLIC_URL + '/images/reIssue.png'} />
+								<img 
+									style={{width: '45px', height: '45px', cursor: 'pointer'}} 
+									src={process.env.PUBLIC_URL + '/images/reIssue.png'} 
+								    title='Renew Book'
+								/>
 							</div>
 							<div>
-								<img style={{width: '45px', height: '45px', cursor: 'pointer'}} src={process.env.PUBLIC_URL + '/images/returnBook.png'} />
+								<img 
+									style={{width: '45px', height: '45px', cursor: 'pointer'}} 
+									src={process.env.PUBLIC_URL + '/images/returnBook.png'} 
+								    title='Return Book'
+								/>
 							</div>
 						</div>
 						<div style={{flex:'1'}}>ISBN image here</div>
