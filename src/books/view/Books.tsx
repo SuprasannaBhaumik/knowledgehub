@@ -12,19 +12,42 @@ interface Props {
 interface InternalState {
 	books: Book[];
 	filterOpen: boolean;
+	horror: boolean;
+	technology: boolean;
+	thriller: boolean;
+	business: boolean; 
+	noCriteria: boolean;
 }
 
 class Books extends React.Component<Props, InternalState> {
+
+	checkboxes: any = [
+		{ genre: 'Horror', name: 'horror'},
+		{ genre: 'Technology', name: 'technology'},
+		{ genre: 'Business', name: 'business'},
+		{ genre: 'Thriller', name: 'thriller'}
+
+	];
+
+	genreFilter: any = [];
+
 
 	constructor(props: Props) {
 		super(props);
 		this.state = {
 			books : [],
-			filterOpen: false
+			filterOpen: false,
+			horror: false,
+			technology: false,
+			business: false,
+			thriller: false,
+			noCriteria: true
 		}
 		this.searchWith = this.searchWith.bind(this);
 		this.openFilter = this.openFilter.bind(this);
 		this.closeButton = this.closeButton.bind(this);
+		this.checkboxChoosed = this.checkboxChoosed.bind(this);
+		this.applyFilter = this.applyFilter.bind(this);
 	}
 
 	render() {
@@ -65,7 +88,7 @@ class Books extends React.Component<Props, InternalState> {
 							<input 
 								type="text" 
 								onChange={this.searchWith}
-								style={{ paddingLeft: '15px', height: '50%', width: '100%', borderRadius: '10px', fontSize: '22px', border: '1px solid grey'}}
+								style={{ paddingLeft: '15px', height: '50px', width: '100%', borderRadius: '10px', fontSize: '22px', border: '1px solid grey'}}
 								placeholder = {'Please enter author or title name'}
 							/> 
 						</div>
@@ -90,17 +113,33 @@ class Books extends React.Component<Props, InternalState> {
 						dialogClassName=''
 					>
 						<Modal.Header closeButton>
-							<Modal.Title>Filter Criteria</Modal.Title>
+							<Modal.Title>Filter Criteria: Pick your Genre</Modal.Title>
 						</Modal.Header>
 
 						<Modal.Body>
-							
+							<div style={{display:'flex', flexDirection: 'column'}}>
+								{this.checkboxes.map ((checkbox: any, idx: number) => {
+									const key = checkbox.name;
+									console.log(key);
+									return (
+										<div key={idx}>
+											<input 
+												onChange = {this.checkboxChoosed} 
+												style={{ marginTop: '2px', marginRight: '5px'}} 
+												type="checkbox"
+												name={checkbox.name} 
+												value={checkbox.genre}/>{checkbox.genre}
+										</div>
+									)
+								})}
+								{this.state.noCriteria && <p style={{color:'red', fontSize:'20px'}}>Please select at least one filter</p>}
+							</div>
 						</Modal.Body>
 
 						<Modal.Footer>
 							<input 
 								type="button" 
-								value="Filter" 
+								value="Apply" 
 								style={{ 
 									height: '50px', 
 									width: '90px', 
@@ -109,7 +148,10 @@ class Books extends React.Component<Props, InternalState> {
 									backgroundColor:'#33adff',
 									border: 'none', 
 									borderRadius: '10px'
-								}} />
+								}}
+								disabled = {this.state.noCriteria}
+								onClick={this.applyFilter}
+								/>
 							<input 
 								type="button" 
 								value="Reset" 
@@ -149,7 +191,11 @@ class Books extends React.Component<Props, InternalState> {
 
 	openFilter(event: any) {
 		this.setState({
-			filterOpen: true
+			filterOpen: true,
+			horror: false,
+			business: false,
+			technology: false,
+			thriller: false
 		});
 	}
 
@@ -157,6 +203,50 @@ class Books extends React.Component<Props, InternalState> {
 		this.setState({
 			filterOpen: false
 		});
+	}
+
+
+	checkboxChoosed(event: any) {
+		const { target: { name, checked } } = event;
+		let noCriteria: boolean;
+		if(checked) {
+			noCriteria = false;
+		} else {
+			noCriteria = true;
+		}
+    	this.setState({
+			 [name]: checked,
+			 noCriteria: noCriteria 
+		} as Pick<InternalState, keyof InternalState>);
+	}
+
+	applyFilter() {
+		let criteria = '?'
+		if(this.state.horror) {
+			criteria += 'genre=Horror&'
+		}
+		if(this.state.technology) {
+			criteria += 'genre=Tehcnology&'
+		}
+		if(this.state.business) {
+			criteria += 'genre=Business&'
+		}
+		if(this.state.thriller) {
+			criteria += 'genre=Thriller&'
+		}
+        if(criteria.length === 1) {
+			criteria = '';
+			this.setState({
+				noCriteria: true
+			})
+		} else {
+			this.setState({
+				noCriteria: false,
+				filterOpen: false
+			})
+			criteria = criteria.substring(0, criteria.length - 1);
+			this.props.filterBooks(criteria);
+		}
 	}
 
 	componentDidMount () {

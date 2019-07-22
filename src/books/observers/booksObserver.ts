@@ -12,7 +12,6 @@ export async function filterBooks(criteria: string, dispatch: any) {
 			}
 		})
 		.catch((error: any) => {
-			console.log(error);
 			dispatch(loadBooks([]));
 		});
     

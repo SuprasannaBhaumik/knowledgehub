@@ -1,6 +1,5 @@
 import Books from './Books';
 import {connect } from 'react-redux';
-import {User} from '../../model/User';
 
 import {filterBooks} from '../observers/booksObserver';
 import { State } from '../../application/state';
