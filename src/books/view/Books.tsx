@@ -2,6 +2,8 @@ import React from 'react';
 import { Book } from '../../book/model/Book';
 import _ from 'lodash'; 
 import BookTile from '../../book/view/BookTile';
+import Modal from 'react-bootstrap/Modal';
+
 interface Props {
 	books: Book[];
 	filterBooks(criteria: string): any;
@@ -9,6 +11,7 @@ interface Props {
 
 interface InternalState {
 	books: Book[];
+	filterOpen: boolean;
 }
 
 class Books extends React.Component<Props, InternalState> {
@@ -16,9 +19,12 @@ class Books extends React.Component<Props, InternalState> {
 	constructor(props: Props) {
 		super(props);
 		this.state = {
-			books : []
+			books : [],
+			filterOpen: false
 		}
 		this.searchWith = this.searchWith.bind(this);
+		this.openFilter = this.openFilter.bind(this);
+		this.closeButton = this.closeButton.bind(this);
 	}
 
 	render() {
@@ -66,7 +72,7 @@ class Books extends React.Component<Props, InternalState> {
 						<div style={{flex: '2', marginTop:'-7px', paddingLeft:'22px'}}>
 							<img style={{width: '60px', height: '60px', cursor: 'pointer'}} 
 									 src={process.env.PUBLIC_URL + '/images/filter.jpg'} 
-									 title='Add Book'
+									 title='Filter Criteria' onClick={this.openFilter}
 							/>
 						</div>
 					</div>
@@ -75,6 +81,25 @@ class Books extends React.Component<Props, InternalState> {
 				<>
 					{bookList}
 				</>
+
+				<Modal 
+						show= {this.state.filterOpen} 
+						onHide={this.closeButton}
+						size="xl"
+        				aria-labelledby="contained-modal-title-vcenter"
+						dialogClassName=''
+					>
+						<Modal.Header closeButton>
+							<Modal.Title>Filter Criteria</Modal.Title>
+						</Modal.Header>
+
+						<Modal.Body>
+							
+						</Modal.Body>
+					</Modal>
+
+
+
 			</div> 
 		);
 	}
@@ -94,6 +119,17 @@ class Books extends React.Component<Props, InternalState> {
 		});
 	}
 
+	openFilter(event: any) {
+		this.setState({
+			filterOpen: true
+		});
+	}
+
+	closeButton() {
+		this.setState({
+			filterOpen: false
+		});
+	}
 
 	componentDidMount () {
 		this.props.filterBooks('');
