@@ -96,6 +96,34 @@ class Books extends React.Component<Props, InternalState> {
 						<Modal.Body>
 							
 						</Modal.Body>
+
+						<Modal.Footer>
+							<input 
+								type="button" 
+								value="Filter" 
+								style={{ 
+									height: '50px', 
+									width: '90px', 
+									fontSize: '18px', 
+									color:'white', 
+									backgroundColor:'#33adff',
+									border: 'none', 
+									borderRadius: '10px'
+								}} />
+							<input 
+								type="button" 
+								value="Reset" 
+								style={{ 
+									height: '50px', 
+									width: '90px', 
+									fontSize: '18px', 
+									color:'white', 
+									backgroundColor:'red', 
+									borderRadius: '10px',
+									border:'none'
+								}} 
+							/>
+						</Modal.Footer>
 					</Modal>
 
 
