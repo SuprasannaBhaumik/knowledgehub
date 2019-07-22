@@ -55,7 +55,7 @@ class Books extends React.Component<Props, InternalState> {
 				<div style={{height: '10vh', display:'flex', justifyContent:'center' }}>
 					<div style = {{flex: '1'}}/>
 					<div style = {{flex: '3', display: 'flex', marginTop: '10px', marginBottom: '10px'}}>
-						<div style = {{flex:'18'}}>
+						<div style = {{flex:'20'}}>
 							<input 
 								type="text" 
 								onChange={this.searchWith}
@@ -63,8 +63,11 @@ class Books extends React.Component<Props, InternalState> {
 								placeholder = {'Please enter author or title name'}
 							/> 
 						</div>
-						<div style={{flex: '2'}}>
-							<span>filter here</span>
+						<div style={{flex: '2', marginTop:'-7px', paddingLeft:'22px'}}>
+							<img style={{width: '60px', height: '60px', cursor: 'pointer'}} 
+									 src={process.env.PUBLIC_URL + '/images/filter.jpg'} 
+									 title='Add Book'
+							/>
 						</div>
 					</div>
 					<div style = {{flex: '1'}}/>
