@@ -26,17 +26,17 @@ class BookTile extends React.Component<Props, InternalState> {
 		return (
 			<div style={{height: '20vh', display:'flex', justifyContent:'center' }}>
 				<div style = {{flex: '1', height: '20px'}}/>
-				<div style = {{flex: '3', display:'flex', borderRadius: '20px', boxShadow: '0 0 12px #b3cccc'}}>
+				<div style = {{flex: '3', display:'flex', borderRadius: '20px', boxShadow: '0 0 12px #b3cccc', marginTop: '10px', marginBottom: '10px'}}>
 					<div style={{flex:'2'}}>Book thumbnail here</div>
 					<div style={{flex:'4', display:'flex', flexDirection:'column', marginTop: '10px' }}>
 						<div style={{flex:'1', fontSize: '23px'}}>
-							<span>{title}Book Name</span>
+							<span>{title}</span>
 						</div>
 						<div style={{flex:'1', fontSize: '18px'}}>
-							<span>{author}Author name</span>
+							<span>{author}</span>
 						</div>
 						<div style={{flex:'4', fontSize: '14px'}}>
-							<span>{description}Blah blah text...</span>
+							<span>{description}</span>
 						</div>
 					</div>
 					<div style={{flex:'3', display:'flex', flexDirection: 'column'}}>

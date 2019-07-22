@@ -1,6 +1,6 @@
 import React from 'react';
 import {LoginContainer} from '../../login/view/LoginContainer'; 
-import  BookTile  from '../../book/view/BookTile';
+import  { BooksContainer }  from '../../books/view/BooksContainer';
 class App extends React.Component {
 
 	render(){
@@ -8,7 +8,7 @@ class App extends React.Component {
 			<>
 				
 				
-				<BookTile/>
+				<BooksContainer/>
 			</>
 		);
 	}
