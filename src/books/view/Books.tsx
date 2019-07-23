@@ -67,6 +67,7 @@ class Books extends React.Component<Props, InternalState> {
 							description={b.description}
 							isbn={b.isbn}
 							image={b.image}
+							id={b.id}
 						/>
 					);
 					}
@@ -120,7 +121,6 @@ class Books extends React.Component<Props, InternalState> {
 							<div style={{display:'flex', flexDirection: 'column'}}>
 								{this.checkboxes.map ((checkbox: any, idx: number) => {
 									const key = checkbox.name;
-									console.log(key);
 									return (
 										<div key={idx}>
 											<input 

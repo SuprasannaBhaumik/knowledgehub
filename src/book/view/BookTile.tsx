@@ -10,6 +10,7 @@ interface Props {
 	image?: string;
 	description?: string;
 	genre?: string;
+	id: string;
 }
 
 interface InternalState{
@@ -21,7 +22,7 @@ class BookTile extends React.Component<Props, InternalState> {
 
 	render() {
 
-		const {author, title, isbn, description, genre } = this.props;
+		const {author, title, isbn, description, genre, id } = this.props;
 
 		return (
 			<div style={{height: '20vh', display:'flex', justifyContent:'center' }}>
@@ -44,7 +45,7 @@ class BookTile extends React.Component<Props, InternalState> {
 							<div>
 								<img style={{width: '45px', height: '45px', cursor: 'pointer'}} 
 									 src={process.env.PUBLIC_URL + '/images/addBook.png'} 
-									 title='Add Book'
+									 title='Issue Book'
 								/>
 							</div>
 							<div>

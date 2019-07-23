@@ -11,7 +11,8 @@ import { BrowserRouter, Route, Link } from 'react-router-dom';
 import { LoginContainer } from './login/view/LoginContainer';
 import { RegisterContainer } from './register/view/RegisterContainer';
 import { HomeContainer } from './home/view/HomeContainer';
-
+import { HeaderContainer } from './application/view/HeaderContainer';
+import Footer from './application/view/Footer';
 //import the provider from the redux library
 
 //declare the store variable using the create store method that takes rootreducer and middleware
@@ -23,10 +24,23 @@ const store = createStore( rootReducer, composeEnhancers(applyMiddleware(createL
 ReactDOM.render(
 	<BrowserRouter>
 		<Provider store={store}>
-			<Route path="/" exact component={App} />
-			<Route path="/login" exact component={LoginContainer} />
-			<Route path="/register" exact component={RegisterContainer} />
-			<Route path="/home" exact component={HomeContainer}/>
+			<div style={{display:'flex', minHeight: '100vh', flexDirection: 'column'}}>
+				<div style={{}}>
+					<HeaderContainer/>
+				</div>
+				<div style={{display:'flex', flex:'1'}}>
+					<Route path="/" exact component={App} />
+					<Route path="/login" exact component={LoginContainer} />
+					<Route path="/register" exact component={RegisterContainer} />
+					<Route path="/home" exact component={HomeContainer}/>
+				</div>
+				<div style={{}}>
+					<Footer/>
+				</div>
+			</div>
+			
+			
+			
 		</Provider>
 	</BrowserRouter>, 
 	document.getElementById('root'));

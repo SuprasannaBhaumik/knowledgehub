@@ -1,8 +1,8 @@
 import {Profile} from '../model/Profile';
 
 const defaultProfile: Profile = {
-    first_name: '',
-    email: '',
+    first_name: 'Ghost',
+    email: 'ghost@rider.com',
     role: 'LMS_USER'
 }
 
