@@ -16,7 +16,10 @@ interface InternalState {
 	technology: boolean;
 	thriller: boolean;
 	business: boolean; 
+	fiction: boolean;
+	romantic: boolean;
 	noCriteria: boolean;
+
 }
 
 class Books extends React.Component<Props, InternalState> {
@@ -25,7 +28,9 @@ class Books extends React.Component<Props, InternalState> {
 		{ genre: 'Horror', name: 'horror'},
 		{ genre: 'Technology', name: 'technology'},
 		{ genre: 'Business', name: 'business'},
-		{ genre: 'Thriller', name: 'thriller'}
+		{ genre: 'Thriller', name: 'thriller'},
+		{ genre: 'Fiction', name: 'fiction'},
+		{ genre: 'Romantic', name: 'romantic'}
 
 	];
 
@@ -41,6 +46,8 @@ class Books extends React.Component<Props, InternalState> {
 			technology: false,
 			business: false,
 			thriller: false,
+			fiction: false,
+			romantic: false,
 			noCriteria: true
 		}
 		this.searchWith = this.searchWith.bind(this);
@@ -120,7 +127,6 @@ class Books extends React.Component<Props, InternalState> {
 						<Modal.Body>
 							<div style={{display:'flex', flexDirection: 'column'}}>
 								{this.checkboxes.map ((checkbox: any, idx: number) => {
-									const key = checkbox.name;
 									return (
 										<div key={idx}>
 											<input 
@@ -195,7 +201,9 @@ class Books extends React.Component<Props, InternalState> {
 			horror: false,
 			business: false,
 			technology: false,
-			thriller: false
+			thriller: false,
+			fiction: false,
+			romantic: false
 		});
 	}
 
@@ -233,6 +241,12 @@ class Books extends React.Component<Props, InternalState> {
 		}
 		if(this.state.thriller) {
 			criteria += 'genre=Thriller&'
+		}
+		if(this.state.romantic) {
+			criteria += 'genre=Romantic&'
+		}
+		if(this.state.fiction) {
+			criteria += 'genre=Fiction&'
 		}
         if(criteria.length === 1) {
 			criteria = '';

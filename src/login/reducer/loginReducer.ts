@@ -1,9 +1,9 @@
 import {Profile} from '../model/Profile';
 
 const defaultProfile: Profile = {
-    first_name: 'Ghost',
-    email: 'ghost@rider.com',
-    role: 'LMS_USER'
+    first_name: 'Supra',
+    email: 'supra@bhaumik.com',
+    role: 'ADMIN'
 }
 
 export function reduceLoginSuccess(p: Profile = defaultProfile, action: any) {

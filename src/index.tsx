@@ -13,6 +13,9 @@ import { RegisterContainer } from './register/view/RegisterContainer';
 import { HomeContainer } from './home/view/HomeContainer';
 import { HeaderContainer } from './application/view/HeaderContainer';
 import Footer from './application/view/Footer';
+import { AdminBookContainer } from './books/view/AdminBookContainer';
+import Unauthorized from './application/view/Unauthorized';
+
 //import the provider from the redux library
 
 //declare the store variable using the create store method that takes rootreducer and middleware
@@ -33,14 +36,13 @@ ReactDOM.render(
 					<Route path="/login" exact component={LoginContainer} />
 					<Route path="/register" exact component={RegisterContainer} />
 					<Route path="/home" exact component={HomeContainer}/>
+					<Route path="/adminBook" exact component={AdminBookContainer} />
+					<Route path="/unAuthorized" component = {Unauthorized} />
 				</div>
 				<div style={{}}>
 					<Footer/>
 				</div>
 			</div>
-			
-			
-			
 		</Provider>
 	</BrowserRouter>, 
 	document.getElementById('root'));

@@ -5,4 +5,5 @@ export interface State {
 	profile: Profile;
 	registrationSuccess: boolean;
 	books: Book[];
+	bookAddSuccess: boolean;
 }
