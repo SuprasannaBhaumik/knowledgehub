@@ -10,7 +10,7 @@ interface Props {
 	image?: string;
 	description?: string;
 	genre?: string;
-	id: string;
+	id?: string;
 }
 
 interface InternalState{
