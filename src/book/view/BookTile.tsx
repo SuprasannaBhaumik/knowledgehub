@@ -87,7 +87,7 @@ class BookTile extends React.Component<Props, InternalState> {
 											<img style={{width: '45px', height: '45px', cursor: 'pointer'}} 
 												src={process.env.PUBLIC_URL + '/images/editBook.png'} 
 												title='Edit Book'
-												onClick={() => this.openModalPopUp('Edit Book')}
+												onClick={() => this.openModalPopUp('Edit')}
 											/>
 										</div>
 								}
@@ -97,7 +97,7 @@ class BookTile extends React.Component<Props, InternalState> {
 												style={{width: '45px', height: '45px', cursor: 'pointer'}} 
 												src={process.env.PUBLIC_URL + '/images/deleteBook.jpg'} 
 												title='Delete Book' 
-												onClick={() => this.openModalPopUp('Delete Book')}
+												onClick={() => this.openModalPopUp('Delete')}
 											/>
 										</div>
 								}
@@ -105,7 +105,7 @@ class BookTile extends React.Component<Props, InternalState> {
 									<img style={{width: '45px', height: '45px', cursor: 'pointer'}} 
 										src={process.env.PUBLIC_URL + '/images/addBook.png'} 
 										title='Issue Book'
-										onClick={() => this.openModalPopUp('Issue Book')}
+										onClick={() => this.openModalPopUp('Issue')}
 									/>
 								</div>
 								<div>
@@ -113,7 +113,7 @@ class BookTile extends React.Component<Props, InternalState> {
 										style={{width: '45px', height: '45px', cursor: 'pointer'}} 
 										src={process.env.PUBLIC_URL + '/images/reIssue.png'} 
 										title='Renew Book'
-										onClick={() => this.openModalPopUp('Renew Book')}
+										onClick={() => this.openModalPopUp('Renew')}
 									/>
 								</div>
 								<div>
@@ -121,7 +121,7 @@ class BookTile extends React.Component<Props, InternalState> {
 										style={{width: '45px', height: '45px', cursor: 'pointer'}} 
 										src={process.env.PUBLIC_URL + '/images/returnBook.png'} 
 										title='Return Book'
-										onClick={() => this.openModalPopUp('Return Book')}
+										onClick={() => this.openModalPopUp('Return')}
 									/>
 								</div>
 							</div>
@@ -139,11 +139,13 @@ class BookTile extends React.Component<Props, InternalState> {
 							dialogClassName=''
 						>
 							<Modal.Header closeButton>
-								<Modal.Title>{type}</Modal.Title>
+								<Modal.Title>{type} Book</Modal.Title>
 							</Modal.Header>
 
 							<Modal.Body>
-								
+								{ type === 'Edit' && <span>For edit</span>}
+								{ type === 'Delete' && <span>Are you sure you want to delete the book and the copies</span>}
+								{ type === 'Return' && <span>Are you sure to return the book?</span>}
 							</Modal.Body>
 
 							<Modal.Footer>

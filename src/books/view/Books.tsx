@@ -59,6 +59,7 @@ class Books extends React.Component<Props, InternalState> {
 		this.closeButton = this.closeButton.bind(this);
 		this.checkboxChoosed = this.checkboxChoosed.bind(this);
 		this.applyFilter = this.applyFilter.bind(this);
+		this.addBook = this.addBook.bind(this);
 	}
 
 	render() {
@@ -266,6 +267,10 @@ class Books extends React.Component<Props, InternalState> {
 			criteria = criteria.substring(0, criteria.length - 1);
 			this.props.filterBooks(criteria);
 		}
+	}
+
+	addBook() {
+		
 	}
 
 	componentDidMount () {
