@@ -272,7 +272,7 @@ class BookTile extends React.Component<Props, InternalState> {
 									backgroundImage: 'linear-gradient(red,lightred);',
 									borderRadius: '10px',
 									border:'none',
-									fontWeight: '40'
+									fontWeight: 140
 								}}
 								onClick={this.reset} 
 							/>
