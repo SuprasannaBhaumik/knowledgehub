@@ -81,6 +81,7 @@ class Books extends React.Component<Props, InternalState> {
 							image={b.image!}
 							id={b.id!}
 							profile={profile}
+							copies = {b.copies}
 						/>
 					);
 					}

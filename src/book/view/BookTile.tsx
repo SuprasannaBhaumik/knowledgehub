@@ -12,6 +12,7 @@ interface Props {
 	genre: string;
 	id: string;
 	profile: Profile;
+	copies: number;
 }
 
 interface InternalState{
@@ -25,6 +26,12 @@ interface InternalState{
 	image: string;
 	popUpOpen: boolean;
 	type: string;
+	copies: number;
+	modalAuthor: string;
+	modalTitle: string;
+	modalDescription: string;
+	modalGenre: string;
+	modalCopies: number;
 }
 
 class BookTile extends React.Component<Props, InternalState> {
@@ -41,14 +48,73 @@ class BookTile extends React.Component<Props, InternalState> {
 			profile: props.profile,
 			image: props.image,
 			popUpOpen: false,
-			type: ''
+			type: '',
+			copies: props.copies,
+			modalAuthor: props.author,
+			modalTitle: props.title,
+			modalDescription: props.description,
+			modalGenre: props.genre,
+			modalCopies: props.copies
 		}
 		this.closeButton = this.closeButton.bind(this);
+		
+		this.handleAuthor = this.handleAuthor.bind(this);
+		this.handleTitle = this.handleTitle.bind(this);
+		this.handleDescription = this.handleDescription.bind(this);
+		this.handleGenre = this.handleGenre.bind(this);
+		this.handleCopies = this.handleCopies.bind(this);
+		this.reset = this.reset.bind(this);
 	}
+
+	reset = () => {
+
+		this.setState( {
+			modalAuthor: '',
+			modalTitle: '',
+			modalDescription: '',
+			modalGenre: '',
+			modalCopies: 0
+		});
+	}
+
+	handleAuthor(event: any) {
+		this.setState( {
+			modalAuthor: event.target.value
+		});
+	} 
+
+	handleTitle(event: any) {
+		this.setState( {
+			modalTitle: event.target.value
+		});
+	} 
+
+	handleDescription(event: any) {
+		this.setState( {
+			modalDescription: event.target.value
+		});
+	} 
+
+	handleGenre(event: any) {
+		this.setState( {
+			modalGenre: event.target.value
+		});
+	} 
+
+	handleCopies(event: any) {
+		this.setState( {
+			modalCopies: event.target.value
+		});
+	} 
 
 	public closeButton() {
 		this.setState ({
-			popUpOpen: false
+			popUpOpen: false,
+			modalAuthor: this.state.author,
+			modalTitle: this.state.title,
+			modalDescription: this.state.description,
+			modalGenre: this.state.genre,
+			modalCopies: this.state.copies
 		});
 	}
 
@@ -143,13 +209,76 @@ class BookTile extends React.Component<Props, InternalState> {
 							</Modal.Header>
 
 							<Modal.Body>
-								{ type === 'Edit' && <span>For edit</span>}
+								{ type === 'Edit' && 
+									<div style={{display: 'flex', justifyContent:'center'}}>
+										<div style={{paddingTop:'20px', paddingBottom:'20px',paddingRight:'5px'}}>
+											<div className={''}><span>Title</span></div>
+											<div><span>Author</span></div>
+											<div><span>Genre</span></div>
+											<div><span>Copies</span></div>
+											<div><span>Description</span></div>
+											
+										</div>
+										<div style={{paddingTop:'20px',paddingBottom:'20px',paddingLeft:'5px'}}>
+											<div>
+												<input type="text" value={this.state.modalTitle} onChange={this.handleTitle}/>
+											</div>
+											<div>
+												<input type="text" value={this.state.modalAuthor} onChange={this.handleAuthor}/>
+											</div>
+											<div>
+												<input type="text" value={this.state.modalGenre} onChange={this.handleGenre}/>
+											</div>
+											<div>
+												<input type="number" value={this.state.modalCopies} onChange={this.handleCopies}/>
+											</div>
+											<div>
+												<textarea value={this.state.modalDescription} onChange={this.handleDescription}  />
+											</div>
+
+										</div>
+									</div>							
+							
+								}
 								{ type === 'Delete' && <span>Are you sure you want to delete the book and the copies</span>}
 								{ type === 'Return' && <span>Are you sure to return the book?</span>}
 							</Modal.Body>
 
 							<Modal.Footer>
-								
+								{ type === 'Edit' &&
+								<div>
+									<input 
+								type="button" 
+								value="Update" 
+								style={{ 
+									height: '50px', 
+									width: '90px', 
+									fontSize: '18px', 
+									color:'white', 
+									backgroundColor:'#33adff',
+									border: 'none', 
+									borderRadius: '10px'
+								}}
+								/>
+							<input 
+								type="button" 
+								value="Reset" 
+								style={{ 
+									height: '50px', 
+									width: '90px', 
+									fontSize: '18px', 
+									color:'white', 
+									backgroundColor:'red', 
+									backgroundImage: 'linear-gradient(red,lightred);',
+									borderRadius: '10px',
+									border:'none',
+									fontWeight: '40'
+								}}
+								onClick={this.reset} 
+							/>
+
+								</div>
+								}
 							</Modal.Footer>
 					</Modal>
 				</div>
