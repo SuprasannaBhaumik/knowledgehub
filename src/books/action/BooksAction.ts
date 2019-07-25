@@ -3,13 +3,18 @@ import { Book } from '../../book/model/Book';
 export enum BooksActionTypes {
 	LMS_LOAD_BOOKS = 'LMS_LOAD_BOOKS',
 	LMS_BOOK_ADD_SUCCESSFULL='LMS_BOOK_ADD_SUCCESSFULL',
-	LMS_BOOK_ADD_FAILED='LMS_BOOK_ADD_FAILED'
+	LMS_BOOK_ADD_FAILED='LMS_BOOK_ADD_FAILED',
+    LMS_BOOK_UPDATE_SUCCESSFULL='LMS_BOOK_UPDATE_SUCCESSFULL',
+    LMS_BOOK_UPDATE_FAILED='LMS_BOOK_UPDATE_FAILED'
 }
 
 export type BooksAction =
 	| {type: typeof BooksActionTypes.LMS_LOAD_BOOKS, payload: Book[]}
 	| {type: typeof BooksActionTypes.LMS_BOOK_ADD_SUCCESSFULL, payload: boolean}
 	| {type: typeof BooksActionTypes.LMS_BOOK_ADD_FAILED, payload: boolean}
+    | {type: typeof BooksActionTypes.LMS_BOOK_UPDATE_SUCCESSFULL, payload: boolean}
+    | {type: typeof BooksActionTypes.LMS_BOOK_UPDATE_FAILED, payload: boolean}
+
 
 
 export function loadBooks(payload: Book[]): BooksAction {
@@ -23,3 +28,12 @@ export function bookAddSuccessfull(payload: boolean): BooksAction {
 export function bookAddFailed(payload: boolean): BooksAction {
     return { type: BooksActionTypes.LMS_BOOK_ADD_FAILED, payload};
 };
+
+export function bookUpdateSuccessfull(payload: boolean): BooksAction {
+    return { type: BooksActionTypes.LMS_BOOK_UPDATE_SUCCESSFULL, payload};
+};
+
+export function bookUpdateFailed(payload: boolean): BooksAction {
+    return { type: BooksActionTypes.LMS_BOOK_UPDATE_FAILED, payload};
+};
+

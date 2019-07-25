@@ -2,6 +2,8 @@ import React from 'react';
 import { Profile } from '../../application/model/Profile';
 import Modal from 'react-bootstrap/Modal';
 import _ from 'lodash';
+import { Book } from '../../book/model/Book';
+
 
 interface Props {
 	title: string;
@@ -13,6 +15,8 @@ interface Props {
 	id: string;
 	profile: Profile;
 	copies: number;
+	updateBook(book: Book): void;
+
 }
 
 interface InternalState{
@@ -64,6 +68,7 @@ class BookTile extends React.Component<Props, InternalState> {
 		this.handleGenre = this.handleGenre.bind(this);
 		this.handleCopies = this.handleCopies.bind(this);
 		this.reset = this.reset.bind(this);
+		this.updateBook=this.updateBook.bind(this);
 	}
 
 	reset = () => {
@@ -123,6 +128,20 @@ class BookTile extends React.Component<Props, InternalState> {
 			popUpOpen: true,
 			type
 		})
+	}
+
+	public updateBook(event: any){
+	event.preventDefault();
+		const book: Book = {
+			title: this.state.modalTitle,
+			author: this.state.modalAuthor,
+			copies: this.state.modalCopies,
+			description: this.state.modalDescription,
+			genre: this.state.modalGenre,
+			isbn: this.state.isbn,
+			id: this.state.id,
+		}
+		this.props.updateBook(book);
 	}
 
 	render() {
@@ -259,6 +278,7 @@ class BookTile extends React.Component<Props, InternalState> {
 									border: 'none', 
 									borderRadius: '10px'
 								}}
+								onClick={this.updateBook}
 								/>
 							<input 
 								type="button" 

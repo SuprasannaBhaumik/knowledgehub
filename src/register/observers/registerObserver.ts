@@ -6,7 +6,7 @@ const headers = {
 }
 
 export async function registerNewUserObserver(user: User, dispatch: any) {
-	return await axios.post('http://localhost:9000/employees', user, { headers: headers })
+	return await axios.post('http://localhost:3001/employees', user, { headers: headers })
 		.then((response: any) => {
 			const employee = response.data;
 			if(employee.id) {

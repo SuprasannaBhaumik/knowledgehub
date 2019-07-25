@@ -7,4 +7,5 @@ export interface State {
 	books: Book[];
 	bookAddSuccess: boolean;
 	loginFailureMessage: string;
+    bookUpdateSuccess: boolean;
 }

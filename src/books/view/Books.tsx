@@ -9,6 +9,7 @@ interface Props {
 	books: Book[];
 	profile: Profile;
 	filterBooks(criteria: string): any;
+	updateBook(book: Book): void;
 }
 
 interface InternalState {
@@ -52,7 +53,7 @@ class Books extends React.Component<Props, InternalState> {
 			fiction: false,
 			romantic: false,
 			noCriteria: true,
-			profile: {}
+			profile: {},
 		}
 		this.searchWith = this.searchWith.bind(this);
 		this.openFilter = this.openFilter.bind(this);
@@ -82,6 +83,7 @@ class Books extends React.Component<Props, InternalState> {
 							id={b.id!}
 							profile={profile}
 							copies = {b.copies}
+							updateBook={this.props.updateBook}
 						/>
 					);
 					}

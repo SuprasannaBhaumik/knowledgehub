@@ -6,3 +6,7 @@ export const getAllBooks =
 export const getAddBookStatus =
 	(state: State) => state.bookAddSuccess;
 
+export const getUpdateBookStatus =
+    (state: State) => state.bookUpdateSuccess;	
+
+

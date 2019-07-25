@@ -27,3 +27,23 @@ export function bookAddFail(state: boolean=false, action: any){
 			return state;
 	}
 }
+
+
+export function bookUpdateSuccessfull(state: boolean=false, action: any) {
+    switch(action.type){
+        case 'LMS_BOOK_UPDATE_SUCCESSFULL':
+            return action.payload;
+        default:
+            return state;
+    }
+
+}
+
+export function bookUpdateFail(state: boolean=false, action: any){
+    switch(action.type){
+        case 'LMS_BOOK_UPDATE_FAILED':
+            return action.payload;
+        default:
+            return state;
+    }
+}
