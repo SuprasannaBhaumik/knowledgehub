@@ -15,6 +15,7 @@ interface Props {
 	id: string;
 	profile: Profile;
 	copies: number;
+	updateStatus: boolean;
 	updateBook(book: Book): void;
 
 }
@@ -81,6 +82,7 @@ class BookTile extends React.Component<Props, InternalState> {
 			modalCopies: 0
 		});
 	}
+
 
 	handleAuthor(event: any) {
 		this.setState( {
@@ -306,5 +308,18 @@ class BookTile extends React.Component<Props, InternalState> {
 
 		)
 	}
+	
+	componentDidUpdate(prevProps: Props) {
+		const prev = prevProps.updateStatus;
+		const current = this.props.updateStatus;
+		
+		if(prev !== current) {
+			this.setState({
+				popUpOpen: false
+			});
+		}
+	}
+	
+	
 }
 export default BookTile;

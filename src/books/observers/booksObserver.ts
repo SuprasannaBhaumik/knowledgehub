@@ -43,6 +43,7 @@ export async function updateBookObserver(book:Book, dispatch: any){
     .then((response: any) => {
         const book = response.data;
         if(book.title) {
+            filterBooks('', dispatch);
             dispatch(bookUpdateSuccessfull(true));
         } else {
             dispatch(bookUpdateFailed(false));

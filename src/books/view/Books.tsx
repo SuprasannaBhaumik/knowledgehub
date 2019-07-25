@@ -8,6 +8,7 @@ import { Profile } from '../../login/model/Profile';
 interface Props {
 	books: Book[];
 	profile: Profile;
+	bookUpdateSuccess: boolean;
 	filterBooks(criteria: string): any;
 	updateBook(book: Book): void;
 }
@@ -84,6 +85,7 @@ class Books extends React.Component<Props, InternalState> {
 							profile={profile}
 							copies = {b.copies}
 							updateBook={this.props.updateBook}
+							updateStatus={this.props.bookUpdateSuccess}
 						/>
 					);
 					}
