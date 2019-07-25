@@ -16,7 +16,6 @@ export async function registerNewUserObserver(user: User, dispatch: any) {
 			}
 		})
 		.catch((error: any) => {
-			console.log(error);
 			dispatch(registrationFailed(false));
 		});
     

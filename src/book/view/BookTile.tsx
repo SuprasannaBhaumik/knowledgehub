@@ -289,7 +289,7 @@ class BookTile extends React.Component<Props, InternalState> {
 									fontSize: '18px', 
 									color:'white', 
 									backgroundColor:'red', 
-									backgroundImage: 'linear-gradient(red,lightred);',
+									backgroundImage: 'linear-gradient(red,lightred)',
 									borderRadius: '10px',
 									border:'none',
 									fontWeight: 140
