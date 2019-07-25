@@ -1,7 +1,7 @@
 import React from 'react';
 import { Profile } from '../../application/model/Profile';
 import { Book } from '../../book/model/Book';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 
 interface Props {
 	addBook(book: Book): void;
@@ -43,18 +43,12 @@ class AdminBook extends React.Component<Props, InternalState>{
 	}
 
 	componentDidMount() {
-			
-			
-			console.log(this.props.profile.role);
-			 if (this.props.profile.role === 'USER') {
-				 this.setState({
-					isAdmin: false
-				});
-				
-			}
-			
-			
+		if (this.props.profile.role === 'USER') {
+			this.setState({
+				isAdmin: false
+			});
 		}
+	}
 
 	public handleAddBook (event: any) {
 		event.preventDefault();
@@ -89,14 +83,12 @@ class AdminBook extends React.Component<Props, InternalState>{
 	};
 
 	public handleCopies(event: any) {
-		console.log(event.target.value);
 		this.setState({
 			copies: event.target.value
 		});
 	};
 		
 	public handleDescription(event: any) {
-		console.log(event.target.value);
 		this.setState({
 			description: event.target.value
 		});
@@ -156,9 +148,10 @@ class AdminBook extends React.Component<Props, InternalState>{
 			</div> }
 
 			{ addBookStatus &&
-				
-					<p>Book is added successfully!!!</p>
-
+					<>
+						<p>Book is added successfully!!!</p>
+						<p> Redirect to <Link to="/home">Home</Link></p>
+					</>
 				}
 
 			{ !isAdmin && <Redirect to= '/unAuthorized'/>}

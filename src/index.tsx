@@ -7,7 +7,7 @@ import { createStore, applyMiddleware, compose  } from 'redux';
 import {createLogger} from 'redux-logger';
 import rootReducer from './application/reducers/RootReducer';
 import thunk from 'redux-thunk';
-import { BrowserRouter, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { LoginContainer } from './login/view/LoginContainer';
 import { RegisterContainer } from './register/view/RegisterContainer';
 import { HomeContainer } from './home/view/HomeContainer';
@@ -31,13 +31,15 @@ ReactDOM.render(
 				<div style={{}}>
 					<HeaderContainer/>
 				</div>
-				<div style={{display:'flex', flex:'1'}}>
-					<Route path="/" exact component={App} />
-					<Route path="/login" exact component={LoginContainer} />
-					<Route path="/register" exact component={RegisterContainer} />
-					<Route path="/home" exact component={HomeContainer}/>
-					<Route path="/adminBook" exact component={AdminBookContainer} />
-					<Route path="/unAuthorized" component = {Unauthorized} />
+				<div style={{display:'flex', flex:'3'}}>
+					<Switch>
+						<Route path="/" exact component={App} />
+						<Route path="/login" exact component={LoginContainer} />
+						<Route path="/register" exact component={RegisterContainer} />
+						<Route path="/home" exact component={HomeContainer}/>
+						<Route path="/adminBook" exact component={AdminBookContainer} />
+						<Route path="/unAuthorized" component = {Unauthorized} />
+					</Switch>
 				</div>
 				<div style={{}}>
 					<Footer/>

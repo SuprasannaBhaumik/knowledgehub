@@ -6,4 +6,5 @@ export interface State {
 	registrationSuccess: boolean;
 	books: Book[];
 	bookAddSuccess: boolean;
+	loginFailureMessage: string;
 }

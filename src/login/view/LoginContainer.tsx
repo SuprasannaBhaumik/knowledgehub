@@ -1,17 +1,20 @@
 import Login from './login';
 import { connect } from 'react-redux';
 import { State } from '../../application/state';
-import { getSelectedProfile } from '../state';
+import { getSelectedProfile, getLoginFailureMessage } from '../state';
 import { UserDetails } from '../model/UserDetails';
 
-import { validateLoginAction } from '../action/LoginAction';
+import { validateLogin } from '../observer/loginObserver';
 
 
 
 export const LoginContainer = connect(
 	(state: State) => ({
-		profile: getSelectedProfile(state)
-	}), {
-		makeLoginRequest: (userDetails: UserDetails) => validateLoginAction(userDetails)
+		profile: getSelectedProfile(state),
+		loginFailureMessage: getLoginFailureMessage(state)
+	}), (dispatch: any) => {
+		return {
+			makeLoginRequest: (userDetails: UserDetails) => validateLogin(userDetails, dispatch)
+		}
 	}
 )(Login);

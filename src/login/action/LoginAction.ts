@@ -1,14 +1,20 @@
-import { UserDetails } from '../model/UserDetails';
+import { Profile } from '../model/Profile';
 
 
 export enum LoginActionTypes {
-    LMS_LOGIN_ACTION = 'LMS_LOGIN_ACTION'
+	LMS_LOGIN_SUCCESS = 'LMS_LOGIN_SUCCESS',
+	LMS_LOGIN_FAILURE = 'LMS_LOGIN_FAILURE'
 }
 
 export type LoginAction =
-    | {type: typeof LoginActionTypes.LMS_LOGIN_ACTION, payload: UserDetails}
+	| {type: typeof LoginActionTypes.LMS_LOGIN_SUCCESS, payload: Profile}
+	| {type: typeof LoginActionTypes.LMS_LOGIN_FAILURE, payload: string}
     
 
-export function validateLoginAction(payload: UserDetails): LoginAction {
-    return { type: LoginActionTypes.LMS_LOGIN_ACTION, payload};
+export function loginSuccessAction(payload: Profile): LoginAction {
+    return { type: LoginActionTypes.LMS_LOGIN_SUCCESS, payload};
 };
+
+export function loginFailedAction(payload: string): LoginAction {
+	return { type: LoginActionTypes.LMS_LOGIN_FAILURE, payload};
+}

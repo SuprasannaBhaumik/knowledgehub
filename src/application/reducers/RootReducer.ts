@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 import { State } from "../state";
-import { reduceLoginSuccess } from "../../login/reducer/loginReducer";
+import { reduceLoginSuccess, reduceLoginFailure } from "../../login/reducer/loginReducer";
 import { reduceRegistrationSuccessfull} from '../../register/reducer/registerReducer';
 import { loadAllBooks,bookAddSuucessful } from '../../books/reducer/booksReducer';
 
@@ -9,8 +9,8 @@ export function createRootReducer() {
 		profile: reduceLoginSuccess,
 		registrationSuccess: reduceRegistrationSuccessfull,
 		books: loadAllBooks,
-		bookAddSuccess: bookAddSuucessful
-		 
+		bookAddSuccess: bookAddSuucessful,
+		loginFailureMessage: reduceLoginFailure
 	});
 }
 

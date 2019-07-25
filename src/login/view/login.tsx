@@ -2,11 +2,10 @@ import React from 'react';
 import { UserDetails } from '../model/UserDetails';
 import { Profile } from '../../application/model/Profile';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import { RegisterContainer } from '../../register/view/RegisterContainer';
-import { LoginContainer } from '../../login/view/LoginContainer';
 
 interface Props {
 	profile: Profile;
+	loginFailureMessage: string;
 	makeLoginRequest(userDetails: UserDetails): void;
 }
 
@@ -33,7 +32,6 @@ class Login extends React.Component<Props, InternalState> {
 	}
 
 	handleRegister = (event: any) => {
-		console.log('register is clicked');
 		this.setState({
 			registerClicked: true
 		})
@@ -62,54 +60,61 @@ class Login extends React.Component<Props, InternalState> {
 
 	render(){
 
-		const { profile } = this.props;
+		const { profile, loginFailureMessage } = this.props;
 		const { registerClicked } = this.state;
 		return (
 			<>
 			    { !registerClicked && 
-				<div style={{
-						border: '1px solid black',
-						marginLeft: '30%', 
-						marginTop: '20%',
-						marginRight: '30%', 
-						paddingTop: '1%',
-						paddingBottom: '1%',
-						paddingLeft: '10%',
+				<>
+					<div style={{flex:'4'}}/>
+					<div style={{flex:'4', display: 'flex', flexDirection:'column'}}>
 
-				}}>
-					<div>
-						<div style={{float:'left'}}>
-							<span>Enter username :</span>
+						<div style={{flex:'3'}}/>
+						<div style={{flex:'5', display:'flex', border: '1px solid black', flexDirection:'column'}}>
+							<div style={{flex:'4', display:'flex'}}>
+								<div style={{flex:'1', display:'flex', flexDirection:'column'}}>
+									<div style={{flex:'2'}}/>
+									<div style={{flex:'1', marginRight: '15px', paddingBottom:'20px'}}>
+										<span style={{float:'right' }}>Enter username</span>
+									</div>
+									<div style={{flex:'1', marginRight: '15px', paddingBottom:'20px'}}>
+										<span style={{float:'right' }}>Enter password</span>
+									</div>
+								</div>
+								<div style={{flex:'1', display:'flex', flexDirection:'column'}}>
+									<div style={{flex:'2'}}/>
+									<div style={{flex:'1', marginRight: '15px', paddingBottom:'20px'}}>
+										<input type='text' value = {this.state.username} onChange={this.handleInput}/>
+									</div>
+									<div style={{flex:'1', marginRight: '15px', paddingBottom:'20px'}}>
+										<input type='password' value = {this.state.password} onChange={this.handlePassword} />
+									</div>
+								</div> 
+							</div>
+							<div style={{flex:'2', display:'flex', flexDirection: 'row'}}>
+								<div style={{flex: '1', justifyContent:'center'}}>
+									<input style={{float:'right', marginRight:'5px' }} type="button" value="Login" onClick={this.handleSubmit}/>
+								</div>
+								<div style={{ flex:'1', justifyContent:'center'}}>
+									<input style={{marginLeft:'5px' }} type="button" value="Register" onClick={this.handleRegister}/>
+								</div>
+							</div>
+							<div style={{flex:'2', display:'flex', justifyContent:'center'}}>
+								<span>Login via these alternate channels</span>
+							</div>
+						
 						</div>
-						<div>
-							<span>
-								<input type='text' value = {this.state.username} onChange={this.handleInput}/>
-							</span>
-						</div>
-					</div>	
-					<div>
-						<div style={{float:'left'}}>
-							<span>Enter password :</span>
-						</div>
-						<div>
-							<span>
-								<input type='password' value = {this.state.password} onChange={this.handlePassword} />
-							</span>
-						</div>
-					</div>	
-					<div>
-						<div style={{float:'left'}}>
-							<input type="button" value="Login" onClick={this.handleSubmit}/>
-						</div>
-						<div>
-							<input type="button" value="Register" onClick={this.handleRegister}/>
-						</div>
+						<div style={{flex:'2'}}/>
 					</div>
-				</div>
+					<div style={{flex:'4'}}/>
+				</>
+
+
 				}
 
+				{ loginFailureMessage !== 'onload' && <span style={{color:'red'}}>{loginFailureMessage}</span>}
+				{ loginFailureMessage === 'onload' && profile.email !== 'supra@bhaumik.com' && <Redirect to="/home" />}
 				{ registerClicked && <Redirect to="/register" />}
-				
 			</>
 		);
 	}

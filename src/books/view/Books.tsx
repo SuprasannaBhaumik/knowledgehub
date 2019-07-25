@@ -3,9 +3,11 @@ import { Book } from '../../book/model/Book';
 import _ from 'lodash'; 
 import BookTile from '../../book/view/BookTile';
 import Modal from 'react-bootstrap/Modal';
+import { Profile } from '../../login/model/Profile';
 
 interface Props {
 	books: Book[];
+	profile: Profile;
 	filterBooks(criteria: string): any;
 }
 
@@ -19,6 +21,7 @@ interface InternalState {
 	fiction: boolean;
 	romantic: boolean;
 	noCriteria: boolean;
+	profile: Profile;
 
 }
 
@@ -48,7 +51,8 @@ class Books extends React.Component<Props, InternalState> {
 			thriller: false,
 			fiction: false,
 			romantic: false,
-			noCriteria: true
+			noCriteria: true,
+			profile: {}
 		}
 		this.searchWith = this.searchWith.bind(this);
 		this.openFilter = this.openFilter.bind(this);
@@ -58,7 +62,7 @@ class Books extends React.Component<Props, InternalState> {
 	}
 
 	render() {
-		const { books } = this.state;
+		const { books, profile } = this.state;
 		
 		const bookList = (
 			<>
@@ -72,9 +76,10 @@ class Books extends React.Component<Props, InternalState> {
 							genre={b.genre}
 							title={b.title}
 							description={b.description}
-							isbn={b.isbn}
-							image={b.image}
-							id={b.id}
+							isbn={b.isbn!}
+							image={b.image!}
+							id={b.id!}
+							profile={profile}
 						/>
 					);
 					}
@@ -270,11 +275,12 @@ class Books extends React.Component<Props, InternalState> {
 	componentDidUpdate( prevProps: Props) {
 		const prev = prevProps.books;
 		const current = this.props.books;
-		
+
 		const flag = _.isEqual(prev, current);
 		if(!flag) {
 			this.setState({
-				books : this.props.books
+				books : this.props.books,
+				profile: this.props.profile
 			})
 		}
 	}
