@@ -132,8 +132,8 @@ class BookTile extends React.Component<Props, InternalState> {
 		})
 	}
 
-	public updateBook(event: any){
-	event.preventDefault();
+	updateBook = (event: any) => {
+		event.preventDefault();
 		const book: Book = {
 			title: this.state.modalTitle,
 			author: this.state.modalAuthor,
@@ -310,11 +310,20 @@ class BookTile extends React.Component<Props, InternalState> {
 	}
 	
 	componentDidUpdate(prevProps: Props) {
-		const prev = prevProps.updateStatus;
-		const current = this.props.updateStatus;
-		
-		if(prev !== current) {
+		const prev = prevProps;
+		const current = this.props;
+		const popUpOpenStatus = prev.updateStatus !== current.updateStatus;
+		const flag = _.isEqual(prev, current);
+
+		if(!flag) {
 			this.setState({
+				author: this.props.author,
+				title: this.props.title,
+				isbn: this.props.isbn,
+				description: this.props.description,
+				genre: this.props.genre,
+				id: this.props.id,
+				image: this.props.image,
 				popUpOpen: false
 			});
 		}

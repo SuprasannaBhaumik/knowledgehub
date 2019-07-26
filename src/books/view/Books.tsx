@@ -67,27 +67,28 @@ class Books extends React.Component<Props, InternalState> {
 	render() {
 		const { books, profile } = this.state;
 		
-		const bookList = (
+		let bookList = (
 			<>
 			{!!books.length &&
 				<> 
-				{books.map( (b: Book, idx: number) => {
-					return  (
-						<BookTile 
-							key={idx}
-							author={b.author}
-							genre={b.genre}
-							title={b.title}
-							description={b.description}
-							isbn={b.isbn!}
-							image={b.image!}
-							id={b.id!}
-							profile={profile}
-							copies = {b.copies}
-							updateBook={this.props.updateBook}
-							updateStatus={this.props.bookUpdateSuccess}
-						/>
-					);
+				{books.map( 
+					(b: Book, idx: number) => {
+						return  (
+							<BookTile 
+								key={idx}
+								author={b.author}
+								genre={b.genre}
+								title={b.title}
+								description={b.description}
+								isbn={b.isbn!}
+								image={b.image!}
+								id={b.id!}
+								profile={profile}
+								copies = {b.copies}
+								updateBook={this.props.updateBook}
+								updateStatus={this.props.bookUpdateSuccess}
+							/>
+						);
 					}
 				)}
 				</>
@@ -294,6 +295,8 @@ class Books extends React.Component<Props, InternalState> {
 			})
 		}
 	}
+
+	
 
 
 

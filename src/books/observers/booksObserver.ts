@@ -32,7 +32,6 @@ export async function addNewBookObserver(book: Book, dispatch: any) {
 			}
 		})
 		.catch((error: any) => {
-			console.log(error);
 			dispatch(bookAddFailed(false));
 		});
 
@@ -43,8 +42,8 @@ export async function updateBookObserver(book:Book, dispatch: any){
     .then((response: any) => {
         const book = response.data;
         if(book.title) {
-            filterBooks('', dispatch);
             dispatch(bookUpdateSuccessfull(true));
+           	filterBooks('', dispatch);
         } else {
             dispatch(bookUpdateFailed(false));
         }
