@@ -7,6 +7,9 @@ export const getAddBookStatus =
 	(state: State) => state.bookAddSuccess;
 
 export const getUpdateBookStatus =
-    (state: State) => state.bookUpdateSuccess;	
+    (state: State) => state.bookUpdateSuccess;
+    
+export const getBookDeleteStatus =
+    (state: State) =>state.bookDeleteSuccess;
 
 
