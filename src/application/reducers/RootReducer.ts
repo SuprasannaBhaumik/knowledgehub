@@ -2,7 +2,7 @@ import { combineReducers } from "redux";
 import { State } from "../state";
 import { reduceLoginSuccess, reduceLoginFailure } from "../../login/reducer/loginReducer";
 import { reduceRegistrationSuccessfull} from '../../register/reducer/registerReducer';
-import { loadAllBooks,bookAddSuucessful,bookUpdateSuccessfull } from '../../books/reducer/booksReducer';
+import { loadAllBooks,bookAddSuucessful,bookUpdateSuccessfull,bookDeleteSuccessfull } from '../../books/reducer/booksReducer';
 
 export function createRootReducer() {
 	return combineReducers<State>({
@@ -11,7 +11,8 @@ export function createRootReducer() {
 		books: loadAllBooks,
 		bookAddSuccess: bookAddSuucessful,
 		loginFailureMessage: reduceLoginFailure,
-		bookUpdateSuccess: bookUpdateSuccessfull
+		bookUpdateSuccess: bookUpdateSuccessfull,
+		bookDeleteSuccess: bookDeleteSuccessfull,
 
 	});
 }

@@ -4,6 +4,8 @@ import _ from 'lodash';
 import BookTile from '../../book/view/BookTile';
 import Modal from 'react-bootstrap/Modal';
 import { Profile } from '../../login/model/Profile';
+import { IssuedBook } from '../../book/model/IssuedBook';
+
 
 interface Props {
 	books: Book[];
@@ -11,6 +13,9 @@ interface Props {
 	bookUpdateSuccess: boolean;
 	filterBooks(criteria: string): any;
 	updateBook(book: Book): void;
+	deleteBook(id: string): void;
+	bookDeleteSuccess: boolean;
+	issueBook(issuedBook: IssuedBook): void;
 }
 
 interface InternalState {
@@ -24,6 +29,7 @@ interface InternalState {
 	romantic: boolean;
 	noCriteria: boolean;
 	profile: Profile;
+	
 
 }
 
@@ -73,6 +79,17 @@ class Books extends React.Component<Props, InternalState> {
 				<> 
 				{books.map( 
 					(b: Book, idx: number) => {
+					    let issuedBookFlag = false;
+					    if ( typeof this.props.profile.issued_books !== "undefined") {
+						    const issuedBooks = this.props.profile.issued_books!;
+						    let allIds:any[] =[];
+						    issuedBooks.map( (book: IssuedBook) => {
+						    	allIds.push(book.id);
+						    });
+						    const bookTileId = b.id!;
+						    issuedBookFlag  = allIds.includes(bookTileId);
+					    }
+
 						return  (
 							<BookTile 
 								key={idx}
@@ -87,6 +104,10 @@ class Books extends React.Component<Props, InternalState> {
 								copies = {b.copies}
 								updateBook={this.props.updateBook}
 								updateStatus={this.props.bookUpdateSuccess}
+								deleteBook={this.props.deleteBook}
+								deleteStatus={this.props.bookDeleteSuccess}
+								issueBook={this.props.issueBook}
+								issuedBookFlag = {issuedBookFlag}
 							/>
 						);
 					}

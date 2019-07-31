@@ -12,6 +12,7 @@ export async function validateLogin(userDetails: UserDetails, dispatch: any) {
 			const profile: Profile = response.data[0];
 			if(profile) {
 				dispatch(loginSuccessAction(profile));
+				
 			} else {
 				dispatch(loginFailedAction('Please enter correct username and password.'));
 			}

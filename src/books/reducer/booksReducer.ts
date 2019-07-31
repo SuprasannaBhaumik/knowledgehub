@@ -47,3 +47,33 @@ export function bookUpdateFail(state: boolean=false, action: any){
             return state;
     }
 }
+
+
+export function bookDeleteSuccessfull(state: boolean=false, action: any) {
+    switch(action.type){
+        case 'LMS_BOOK_DELETE_SUCCESSFULL':
+            return action.payload;
+        default:
+            return state;
+    }
+
+}
+
+export function bookDeleteFailed(state: boolean=false, action: any){
+    switch(action.type){
+        case 'LMS_BOOK_DELETE_FAILED':
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
+export function bookIssueSuccessfull(state: boolean=false, action: any) {
+    switch(action.type){
+        case 'LMS_BOOK_DELETE_SUCCESSFULL':
+            return action.payload;
+        default:
+            return state;
+    }
+
+}
