@@ -14,7 +14,7 @@ const userJSON = json.employees
 
 
 server.use(jsonServer.defaults());
-server.use(bodyParser.urlencoded({extended: true}))
+// server.use(bodyParser.urlencoded({extended: true}))
 server.use(bodyParser.json())
 
 const SECRET_KEY = 'everyoneinbangaloreisajavadeveloper'
@@ -31,21 +31,21 @@ function verifyToken(token){
 }
 
 // Check if the user exists in database
-function isAuthenticated({first_name, password}){
-  return userJSON.findIndex(user => user.first_name === first_name && user.password === password) !== -1
+function isAuthenticated({username, password}){
+  return userJSON.findIndex(user => user.first_name === username && user.password === password) !== -1
 }
 
 
 // POST request to validate if the user exists in the database and send back the JWT
 server.post('/auth/login', (req, res) => {
-  const {first_name, password} = req.body
-  if (isAuthenticated({first_name, password}) === false) {
+  const {username, password} = req.body
+  if (isAuthenticated({username, password}) === false) {
     const status = 401
     const message = 'Incorrect First Name or password'
     res.status(status).json({status, message})
     return
   }
-  const access_token = createToken({first_name, password})
+  const access_token = createToken({username, password})
   res.status(200).json({access_token})
 })
 
@@ -74,5 +74,3 @@ server.use(router)
 server.listen(3001, () => {
   console.log('Run Auth API Server')
 })
-
-
