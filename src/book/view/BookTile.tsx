@@ -197,10 +197,9 @@ class BookTile extends React.Component<Props, InternalState> {
         const {author, title, isbn, description, genre, id, profile, image, popUpOpen, type, issuedBookFlag } = this.state;
         const showAdminButtons: boolean = typeof profile !== 'undefined' && profile.role ==='ADMIN' ? true: false;
         return (
-             <React.Fragment>
+             <>
                 <div style={{minHeight: '20vh', display:'flex', justifyContent:'center' }}>
-                    <div style = {{flex: '1'}}/>
-                    <div style = {{flex: '3', display:'flex', borderRadius: '20px', boxShadow: '0 0 12px #b3cccc', marginTop: '10px', marginBottom: '10px'}}>
+                    <div style = {{display:'flex', borderRadius: '20px', boxShadow: '0 0 12px #b3cccc', marginTop: '10px', marginBottom: '10px'}}>
                         <div style={{flex:'2'}}>Book thumbnail here</div>
                         <div style={{flex:'4', display:'flex', flexDirection:'column', marginTop: '10px' }}>
                             <div style={{flex:'1', fontSize: '23px'}}>
@@ -261,9 +260,8 @@ class BookTile extends React.Component<Props, InternalState> {
                             <div style={{flex:'1'}}>ISBN image here</div>
                         </div>
                     </div>
-                    <div style = {{flex: '1'}}/>
                 </div>
-                <div>
+                { popUpOpen && <div>
                     <Modal 
                             show= {this.state.popUpOpen} 
                             onHide={this.closeButton}
@@ -419,8 +417,8 @@ class BookTile extends React.Component<Props, InternalState> {
                                 }
                             </Modal.Footer>
                     </Modal>
-                </div>
-            </React.Fragment>
+                </div>}
+            </>
 
         )
     }

@@ -6,6 +6,7 @@ const headers = {
 }
 
 export async function registerNewUserObserver(user: User, dispatch: any) {
+	axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token');
 	return await axios.post('http://localhost:3001/employees', user, { headers: headers })
 		.then((response: any) => {
 			const employee = response.data;

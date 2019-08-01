@@ -22,7 +22,7 @@ class Login extends React.Component<Props, InternalState> {
 		this.state = {
 			username: '',
 			password: '',
-			registerClicked: false
+			registerClicked: false,
 		}
 		this.handleInput = this.handleInput.bind(this);
 		this.handlePassword = this.handlePassword.bind(this);
@@ -102,7 +102,10 @@ class Login extends React.Component<Props, InternalState> {
 							<div style={{flex:'2', display:'flex', justifyContent:'center'}}>
 								<span>Login via these alternate channels</span>
 							</div>
-						
+							{ loginFailureMessage !== 'onload' && <div>
+								<span style={{color:'red'}}>{loginFailureMessage}</span>
+							</div>
+							}
 						</div>
 						<div style={{flex:'2'}}/>
 					</div>
@@ -112,8 +115,7 @@ class Login extends React.Component<Props, InternalState> {
 
 				}
 
-				{ loginFailureMessage !== 'onload' && <span style={{color:'red'}}>{loginFailureMessage}</span>}
-				{ loginFailureMessage === 'onload' && profile.email !== 'supra@bhaumik.com' && <Redirect to="/home" />}
+				{ profile.email !== 'supra@bhaumik.com' && <Redirect to="/home" />}
 				{ registerClicked && <Redirect to="/register" />}
 			</>
 		);

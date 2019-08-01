@@ -1,10 +1,8 @@
-
-
-import React from 'react';
 import axios from 'axios';
 import { UserDetails } from '../model/UserDetails';
 import { Profile } from '../../application/model/Profile';
 import { loginSuccessAction, loginFailedAction } from '../action/LoginAction';
+import jwt_decode from 'jwt-decode';
 
 const headers= {
 	'Content-Type': 'application/json',
@@ -15,17 +13,13 @@ export async function validateLogin(userDetails: UserDetails, dispatch: any) {
 
 	return await axios.post('http://localhost:3001/auth/login', userDetails, {headers: headers})
 		.then((response: any) => {
-			console.log(response.data);
-			console.log('this should be the jwt token');
-			console.log('need to decode it and then set the user in the redux state');
-			console.log('also save the JWT token in the localstorage/ sessionStorage');
-
-			const profile: Profile = response.data[0];
+			localStorage.setItem("token", response.data);
+			const profile: Profile = jwt_decode(response.data.access_token);
 			if(profile) {
 				dispatch(loginSuccessAction(profile));
-				
+				dispatch(loginFailedAction('onload'));
 			} else {
-				dispatch(loginFailedAction('Please enter correct username and password.'));
+				dispatch(loginFailedAction('Please enter correct Username/Password.'));
 			}
 		})
 		.catch((error: any) => {

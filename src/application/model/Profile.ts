@@ -5,4 +5,6 @@ export interface Profile {
 	email?: string;
 	role?: string;
 	password?: string;
+	exp?: number;
+	iat?:number;
 }

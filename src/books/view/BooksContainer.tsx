@@ -4,10 +4,9 @@ import {connect } from 'react-redux';
 import {filterBooks, updateBookObserver,deleteBook,issueBook} from '../observers/booksObserver';
 import { State } from '../../application/state';
 import { getAllBooks, getUpdateBookStatus,getBookDeleteStatus } from '../state/index';
-import { getSelectedProfile } from '../../login/state';
+import { getSelectedProfile, getLoginFailureMessage } from '../../login/state';
 import { Book } from '../../book/model/Book';
 import { IssuedBook } from '../../book/model/IssuedBook';
-
 
 const mapStateToProps = (state: State) => {
 	// all the state objects that are necessary for this module
@@ -15,7 +14,8 @@ const mapStateToProps = (state: State) => {
 		books: getAllBooks(state),
 		profile: getSelectedProfile(state),
 		bookUpdateSuccess: getUpdateBookStatus(state),
-		bookDeleteSuccess: getBookDeleteStatus(state)
+		bookDeleteSuccess: getBookDeleteStatus(state),
+		loginFailureMessage: getLoginFailureMessage(state)
 	}
 }
 

@@ -5,12 +5,13 @@ import BookTile from '../../book/view/BookTile';
 import Modal from 'react-bootstrap/Modal';
 import { Profile } from '../../login/model/Profile';
 import { IssuedBook } from '../../book/model/IssuedBook';
-
+import {Link} from 'react-router-dom';
 
 interface Props {
 	books: Book[];
 	profile: Profile;
 	bookUpdateSuccess: boolean;
+	loginFailureMessage: string; 
 	filterBooks(criteria: string): any;
 	updateBook(book: Book): void;
 	deleteBook(id: string): void;
@@ -29,8 +30,7 @@ interface InternalState {
 	romantic: boolean;
 	noCriteria: boolean;
 	profile: Profile;
-	
-
+	errorMessage: string;
 }
 
 class Books extends React.Component<Props, InternalState> {
@@ -51,7 +51,7 @@ class Books extends React.Component<Props, InternalState> {
 	constructor(props: Props) {
 		super(props);
 		this.state = {
-			books : [],
+			books : props.books || [],
 			filterOpen: false,
 			horror: false,
 			technology: false,
@@ -60,7 +60,8 @@ class Books extends React.Component<Props, InternalState> {
 			fiction: false,
 			romantic: false,
 			noCriteria: true,
-			profile: {},
+			profile: props.profile || {},
+			errorMessage: ''
 		}
 		this.searchWith = this.searchWith.bind(this);
 		this.openFilter = this.openFilter.bind(this);
@@ -71,7 +72,7 @@ class Books extends React.Component<Props, InternalState> {
 	}
 
 	render() {
-		const { books, profile } = this.state;
+		const { books, profile, errorMessage } = this.state;
 		
 		let bookList = (
 			<>
@@ -118,13 +119,10 @@ class Books extends React.Component<Props, InternalState> {
 		);
 
 		return (
-			
-
-
-			<div>
-				<div style={{height: '10vh', display:'flex', justifyContent:'center' }}>
-					<div style = {{flex: '1'}}/>
-					<div style = {{flex: '3', display: 'flex', marginTop: '10px', marginBottom: '10px'}}>
+			<>
+				<div style={{flex: '1'}} />
+				<div style={{flex: '5',  display:'flex', justifyContent:'center', flexDirection:'column' }}>
+					<div style = {{height: '10vh', display: 'flex', marginTop: '10px', marginBottom: '10px'}}>
 						<div style = {{flex:'20'}}>
 							<input 
 								type="text" 
@@ -139,11 +137,24 @@ class Books extends React.Component<Props, InternalState> {
 									 title='Filter Criteria' onClick={this.openFilter}
 							/>
 						</div>
+
 					</div>
-					<div style = {{flex: '1'}}/>
+					<div style = {{flex: '5', display:'flex', flexDirection: 'column'}}>
+						{(errorMessage ==='onload' || errorMessage ==='') && bookList}
+						{ errorMessage !== '' && errorMessage !== 'onload' && 
+							<div style={{flex:'1'}}> 
+								<p style={{}}>{errorMessage}</p>
+								<br/>
+								<span>Please </span> <Link to="/">login</Link><span> to the application</span>
+							</div>
+						}
+					</div>
 				</div>
+				<div style={{flex: '1'}} />
 				<>
-					{bookList}
+					
+					
+
 				</>
 
 				<Modal 
@@ -206,10 +217,7 @@ class Books extends React.Component<Props, InternalState> {
 							/>
 						</Modal.Footer>
 					</Modal>
-
-
-
-			</div> 
+			</> 
 		);
 	}
 
@@ -305,14 +313,15 @@ class Books extends React.Component<Props, InternalState> {
 	}
 
 	componentDidUpdate( prevProps: Props) {
-		const prev = prevProps.books;
-		const current = this.props.books;
+		const prev = prevProps;
+		const current = this.props;
 
 		const flag = _.isEqual(prev, current);
 		if(!flag) {
 			this.setState({
 				books : this.props.books,
-				profile: this.props.profile
+				profile: this.props.profile,
+				errorMessage: this.props.loginFailureMessage
 			})
 		}
 	}

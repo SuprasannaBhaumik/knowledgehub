@@ -27,6 +27,9 @@ function createToken(payload){
 
 // Verify the token 
 function verifyToken(token){
+	if(token === 'null') {
+		throw err
+	}
   return  jwt.verify(token, SECRET_KEY, (err, decode) => decode !== undefined ?  decode : err)
 }
 
@@ -41,17 +44,29 @@ server.post('/auth/login', (req, res) => {
   const {username, password} = req.body
   if (isAuthenticated({username, password}) === false) {
     const status = 401
-    const message = 'Incorrect First Name or password'
+    const message = 'Incorrect Username/Password'
     res.status(status).json({status, message})
     return
   }
-  const access_token = createToken({username, password})
+  
+  //getting the entire details of the user and sending it in the token
+  
+  const selectedUser = userJSON.filter( (user)=> user.first_name === username)[0]
+  const dummyObject = {
+	  first_name: selectedUser.first_name,
+	  email: selectedUser.email,
+	  last_name: selectedUser.last_name,
+	  id: selectedUser.id,
+	  role: selectedUser.role
+  }
+  
+  const access_token = createToken(dummyObject)
   res.status(200).json({access_token})
 })
 
 
 server.use(/^(?!\/auth).*$/,  (req, res, next) => {
-  if (req.headers.authorization === undefined || req.headers.authorization.split(' ')[0] !== 'Bearer') {
+if (req.headers.authorization === undefined || req.headers.authorization.split(' ')[0] !== 'Bearer') { 
     const status = 401
     const message = 'Bad authorization header'
     res.status(status).json({status, message})
@@ -74,3 +89,5 @@ server.use(router)
 server.listen(3001, () => {
   console.log('Run Auth API Server')
 })
+
+
