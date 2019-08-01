@@ -2,17 +2,17 @@ import axios from 'axios';
 import { loadBooks,bookAddFailed,bookAddSuccessfull,bookUpdateSuccessfull,bookUpdateFailed,bookDeleteSuccessfull,bookDeleteFailed,bookIssueSuccessfull,renewBookFail,bookRenewSuccessful  }from '../action/BooksAction';
 import { Book } from '../../book/model/Book';
 import { IssuedBook } from '../../book/model/IssuedBook';
-import { User } from "../../model/User";
 import { Profile } from "../../login/model/Profile";
-import { loginSuccessAction } from "../../login/action/LoginAction";
+import { loginSuccessAction, loginFailedAction } from "../../login/action/LoginAction";
 
-
+axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token');
 
 const headers= {
 	'Content-Type': 'application/json'
 }
 export async function filterBooks(criteria: string, dispatch: any) {
-	return await axios.get('http://localhost:3001/books'+ criteria)
+	axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token');
+	return await axios.get('http://localhost:3001/books'+ criteria, {headers: headers})
 		.then((response: any) => {
 			const books = response.data;
 			if(books.length > 0) {
@@ -22,7 +22,7 @@ export async function filterBooks(criteria: string, dispatch: any) {
 			}
 		})
 		.catch((error: any) => {
-			dispatch(loadBooks([]));
+			dispatch(loginFailedAction(error.message));
 		});
 }
 
