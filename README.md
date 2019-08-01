@@ -25,3 +25,7 @@
 # Server.js 
 
 1. This acts as an intercepter and generates the Json web token for the sessions to be validated.
+
+2. Place the server.js in the required path where json-server is present.
+   Install the required dependencies and issue the command to start
+   **node server.js**
