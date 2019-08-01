@@ -8,7 +8,9 @@ export enum BooksActionTypes {
     LMS_BOOK_UPDATE_FAILED='LMS_BOOK_UPDATE_FAILED',
     LMS_BOOK_DELETE_SUCCESSFULL='LMS_BOOK_DELETE_SUCCESSFULL',
     LMS_BOOK_DELETE_FAILED='LMS_BOOK_DELETE_FAILED',
-    LMS_BOOK_ISSUE_SUCCESSFULL='LMS_BOOK_ISSUE_SUCCESSFULL'
+    LMS_BOOK_ISSUE_SUCCESSFULL='LMS_BOOK_ISSUE_SUCCESSFULL',
+    LMS_BOOK_RENEW_FAILED='LMS_BOOK_RENEW_FAILED',
+    LMS_BOOK_RENEW_SUCCESSFULL='LMS_BOOK_RENEW_SUCCESSFULL'
 
 }
 
@@ -21,6 +23,8 @@ export type BooksAction =
     | {type: typeof BooksActionTypes.LMS_BOOK_DELETE_SUCCESSFULL, payload: boolean}
     | {type: typeof BooksActionTypes.LMS_BOOK_DELETE_FAILED, payload: boolean}
     | {type: typeof BooksActionTypes.LMS_BOOK_ISSUE_SUCCESSFULL, payload: boolean}
+    | {type: typeof BooksActionTypes.LMS_BOOK_RENEW_FAILED, payload: string}
+    | {type: typeof BooksActionTypes.LMS_BOOK_RENEW_SUCCESSFULL, payload: boolean}
 
 
 
@@ -54,3 +58,10 @@ export function bookDeleteFailed(payload: boolean): BooksAction {
 export function bookIssueSuccessfull(payload: boolean): BooksAction {
     return { type: BooksActionTypes.LMS_BOOK_ISSUE_SUCCESSFULL, payload};
 };
+export function renewBookFail(payload: string): BooksAction {
+    return { type: BooksActionTypes.LMS_BOOK_RENEW_FAILED, payload};
+};
+export function bookRenewSuccessful(payload: boolean): BooksAction {
+    return { type: BooksActionTypes.LMS_BOOK_RENEW_SUCCESSFULL, payload};
+};
+

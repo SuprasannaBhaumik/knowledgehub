@@ -9,4 +9,6 @@ export interface State {
 	loginFailureMessage: string;
     bookUpdateSuccess: boolean;
     bookDeleteSuccess: boolean;
+    bookRenewFail: string;
+    bookRenewSuccess: boolean;
 }

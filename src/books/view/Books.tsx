@@ -16,6 +16,10 @@ interface Props {
 	deleteBook(id: string): void;
 	bookDeleteSuccess: boolean;
 	issueBook(issuedBook: IssuedBook): void;
+	returnBook(id: string, userId: number): void;
+	renewBook(issuedBook: IssuedBook): void;
+	bookRenewFail: string;
+	bookRenewSuccess: boolean;
 }
 
 interface InternalState {
@@ -80,16 +84,21 @@ class Books extends React.Component<Props, InternalState> {
 				{books.map( 
 					(b: Book, idx: number) => {
 					    let issuedBookFlag = false;
+					    let renewBookFlag = false;
 					    if ( typeof this.props.profile.issued_books !== "undefined") {
 						    const issuedBooks = this.props.profile.issued_books!;
 						    let allIds:any[] =[];
+						    let renewIds:any[] =[];
 						    issuedBooks.map( (book: IssuedBook) => {
+						        if(book.issue_count !== 3){
+						            renewIds.push(book.id)
+						        }
 						    	allIds.push(book.id);
 						    });
 						    const bookTileId = b.id!;
 						    issuedBookFlag  = allIds.includes(bookTileId);
+						    renewBookFlag = renewIds.includes(bookTileId);
 					    }
-
 						return  (
 							<BookTile 
 								key={idx}
@@ -108,6 +117,11 @@ class Books extends React.Component<Props, InternalState> {
 								deleteStatus={this.props.bookDeleteSuccess}
 								issueBook={this.props.issueBook}
 								issuedBookFlag = {issuedBookFlag}
+								returnBook={this.props.returnBook}
+								renewBook={this.props.renewBook}
+								renewStatus={this.props.bookRenewFail}
+						        bookRenewSuccessStatus={this.props.bookRenewSuccess}
+						        renewBookFlag= {renewBookFlag}
 							/>
 						);
 					}
@@ -305,8 +319,8 @@ class Books extends React.Component<Props, InternalState> {
 	}
 
 	componentDidUpdate( prevProps: Props) {
-		const prev = prevProps.books;
-		const current = this.props.books;
+		const prev = prevProps;
+		const current = this.props;
 
 		const flag = _.isEqual(prev, current);
 		if(!flag) {

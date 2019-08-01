@@ -3,4 +3,5 @@ export interface IssuedBook{
     issuedDate: string;
     returnDate: string;
     userId: number;
+    issue_count: number;
 }
