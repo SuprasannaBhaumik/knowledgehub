@@ -20,3 +20,8 @@
 	http://localhost:9000/employees/supra
 
 	Njoy coding!!!
+
+
+# Server.js 
+
+1. This acts as an intercepter and generates the Json web token for the sessions to be validated.
