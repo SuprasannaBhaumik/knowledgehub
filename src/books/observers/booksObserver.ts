@@ -27,6 +27,7 @@ export async function filterBooks(criteria: string, dispatch: any) {
 }
 
 export async function addNewBookObserver(book: Book, dispatch: any) {
+    axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token');
 	return await axios.post('http://localhost:3001/books', book, { headers: headers })
 		.then((response: any) => {
 			const book = response.data;
@@ -43,6 +44,7 @@ export async function addNewBookObserver(book: Book, dispatch: any) {
 }
 
 export async function updateBookObserver(book:Book, dispatch: any){
+    axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token');
     return await axios.put('http://localhost:3001/books/'+book.id, book, { headers: headers })
     .then((response: any) => {
         const book = response.data;
@@ -61,6 +63,7 @@ export async function updateBookObserver(book:Book, dispatch: any){
 }
 
 export async function deleteBook(id:string, dispatch: any){
+    axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token');
     return await axios.delete('http://localhost:3001/books/'+id, {headers: headers})
     .then((response:any) => {
         if(response.status === 200){
@@ -80,6 +83,7 @@ export async function deleteBook(id:string, dispatch: any){
 
 
 export async function issueBook(issuedBook: IssuedBook, dispatch: any) {
+    axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token');
     return await axios.get('http://localhost:3001/employees/'+ issuedBook.userId)
         .then((response: any) => {
             const issuedBooks: IssuedBook[] = response.data.issued_books;
@@ -98,6 +102,7 @@ export async function issueBook(issuedBook: IssuedBook, dispatch: any) {
 }   
   
 export async function saveBook(employee: Profile,issuedBook: IssuedBook, dispatch: any ) {
+    axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token');
     return await axios.put(`http://localhost:3001/employees/`+ employee.id , employee, { headers: headers })
     .then((response: any) => {
         if(response.status == 200){
@@ -119,6 +124,7 @@ export async function saveBook(employee: Profile,issuedBook: IssuedBook, dispatc
 }
 
 export async function getBookWIthId(id: string, dispatch: any){
+    axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token');
     return await axios.get('http://localhost:3001/books/'+id)
     .then((response: any) => {
         const book:Book = response.data;
@@ -137,6 +143,7 @@ export async function getBookWIthId(id: string, dispatch: any){
 
 
 export async function returnBook(id: string,userId: number, dispatch: any){
+    axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token');
     return await axios.get('http://localhost:3001/employees/'+userId)
     .then((response: any) => {
         const user=response.data;
@@ -153,6 +160,7 @@ export async function returnBook(id: string,userId: number, dispatch: any){
 }
 
 export async function updateBook(employee: Profile,book_id: string, dispatch: any ) {
+    axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token');
     return await axios.put(`http://localhost:3001/employees/`+ employee.id , employee, { headers: headers })
     .then((response: any) => {
         if(response.status == 200){
@@ -174,6 +182,7 @@ export async function updateBook(employee: Profile,book_id: string, dispatch: an
 }
 
 export async function fetchBookWIthId(id: string, dispatch: any){
+    axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token');
     return await axios.get('http://localhost:3001/books/'+id)
     .then((response: any) => {
         const book:Book = response.data;
@@ -191,6 +200,7 @@ export async function fetchBookWIthId(id: string, dispatch: any){
 }
 
 export async function renewBook(book: IssuedBook, dispatch:any){
+    axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token');
     return await axios.get('http://localhost:3001/employees/'+ book.userId)
     .then((response: any) => {
         
@@ -220,6 +230,7 @@ export async function renewBook(book: IssuedBook, dispatch:any){
     }   
 
 export async function renewBookUpdate(user: Profile, dispatch: any ) {
+    axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token');
     return await axios.put(`http://localhost:3001/employees/`+ user.id , user, { headers: headers })
     .then((response: any) => {
         if(response.status == 200){
@@ -236,10 +247,3 @@ export async function renewBookUpdate(user: Profile, dispatch: any ) {
         console.log(error);
     });
 }
-
-
-
-
-
-
-
