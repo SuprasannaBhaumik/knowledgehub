@@ -1,4 +1,4 @@
-
+import { IssuedBook } from '../book/model/IssuedBook';
 
 export interface User {
 	first_name: string;
@@ -8,4 +8,5 @@ export interface User {
 	age?: number;
 	address?: string;
 	role?: string;
+	issued_book: IssuedBook[];
 }

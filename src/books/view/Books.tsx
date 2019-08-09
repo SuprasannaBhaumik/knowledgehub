@@ -5,7 +5,7 @@ import BookTile from '../../book/view/BookTile';
 import Modal from 'react-bootstrap/Modal';
 import { Profile } from '../../login/model/Profile';
 import { IssuedBook } from '../../book/model/IssuedBook';
-import {Link} from 'react-router-dom';
+import {Redirect, Link} from 'react-router-dom';
 
 interface Props {
 	books: Book[];
@@ -35,6 +35,8 @@ interface InternalState {
 	noCriteria: boolean;
 	profile: Profile;
 	errorMessage: string;
+    adminBookClicked: boolean;
+
 }
 
 class Books extends React.Component<Props, InternalState> {
@@ -65,18 +67,28 @@ class Books extends React.Component<Props, InternalState> {
 			romantic: false,
 			noCriteria: true,
 			profile: props.profile || {},
-			errorMessage: ''
+			errorMessage: '',
+		    adminBookClicked: false
 		}
+		
 		this.searchWith = this.searchWith.bind(this);
 		this.openFilter = this.openFilter.bind(this);
 		this.closeButton = this.closeButton.bind(this);
 		this.checkboxChoosed = this.checkboxChoosed.bind(this);
 		this.applyFilter = this.applyFilter.bind(this);
 		this.addBook = this.addBook.bind(this);
+		this.addNewBook=this.addNewBook.bind(this);
 	}
+    
+	addNewBook = () => {
+	    this.setState({
+	        adminBookClicked : true
+	    });
+	 }
+
 
 	render() {
-		const { books, profile, errorMessage } = this.state;
+		const { books, profile, errorMessage, adminBookClicked } = this.state;
 		
 		let bookList = (
 			<>
@@ -151,7 +163,12 @@ class Books extends React.Component<Props, InternalState> {
 									 title='Filter Criteria' onClick={this.openFilter}
 							/>
 						</div>
-
+            			<div style={{flex: '2', marginTop:'-7px', paddingLeft:'22px'}}>
+                        <img style={{width: '60px', height: '60px', cursor: 'pointer'}} 
+                                 src={process.env.PUBLIC_URL + '/images/addBook.png'} 
+                                 title='Add New Book' onClick={this.addNewBook}
+                        />
+                    </div>
 					</div>
 					<div style = {{flex: '5', display:'flex', flexDirection: 'column'}}>
 						{(errorMessage ==='onload' || errorMessage ==='') && bookList}
@@ -231,6 +248,9 @@ class Books extends React.Component<Props, InternalState> {
 							/>
 						</Modal.Footer>
 					</Modal>
+								
+								
+					            { adminBookClicked  && <Redirect to= '/adminBook'/>}
 			</> 
 		);
 	}
@@ -339,10 +359,6 @@ class Books extends React.Component<Props, InternalState> {
 			})
 		}
 	}
-
-	
-
-
 
 }
 
