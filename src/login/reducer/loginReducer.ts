@@ -23,3 +23,14 @@ export function reduceLoginFailure(p: string = 'onload', action: any) {
             return p;
     }
 }
+
+export function reduceLogout(state: boolean = false, action: any) {
+	console.log(action.type)
+	console.log(action.payload)
+    switch (action.type) {
+		case 'LOGOUT':
+			return action.payload;
+        default:
+            return state;
+    }
+}

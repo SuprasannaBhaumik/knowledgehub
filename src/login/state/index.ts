@@ -5,3 +5,6 @@ export const getSelectedProfile =
 	
 export const getLoginFailureMessage = 
 	(state: State) => state.loginFailureMessage;
+
+export const getLogoutStatus =
+	(state: State) => state.isLoggedOut;
