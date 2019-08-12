@@ -12,4 +12,11 @@ export const getUpdateBookStatus =
 export const getBookDeleteStatus =
     (state: State) =>state.bookDeleteSuccess;
 
+export const getBookRenewStatus =
+    (state: State) =>state.bookRenewFail;
+    
+export const getBookRenewSuccessStatus =
+    (state: State) =>state.bookRenewSuccess;
 
+
+    

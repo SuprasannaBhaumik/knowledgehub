@@ -1,7 +1,7 @@
-export interface IssuedBook{
-    id: string;
+export interface IssuedBook { 
     issuedDate: string;
     returnDate: string;
-    userId: number;
+    id: number;
+    userId: string;
     issue_count: number;
 }

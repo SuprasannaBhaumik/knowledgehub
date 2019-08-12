@@ -1,5 +1,5 @@
 import React from 'react';
-import { Profile } from '../../application/model/Profile';
+import { Profile } from '../../login/model/Profile';
 import Modal from 'react-bootstrap/Modal';
 import _ from 'lodash';
 import { Book } from '../../book/model/Book';
@@ -22,6 +22,11 @@ interface Props {
     deleteStatus: boolean;
     issuedBookFlag: boolean;
     issueBook(issuedBook: IssuedBook): void;
+    returnBook(id: string, userId: number): void;
+    renewBook(issuedBook: IssuedBook): void;
+    renewStatus: string;
+    bookRenewSuccessStatus: boolean;
+    renewBookFlag: boolean;
     
 }
 
@@ -46,6 +51,10 @@ interface InternalState{
     issuedDate: string;
     returnDate: string;
     issuedBookFlag: boolean;
+    renewDate: string;
+    renewReturnDate: string;
+    renewBookFlag: boolean;
+    
 }
 
 class BookTile extends React.Component<Props, InternalState> {
@@ -73,7 +82,10 @@ class BookTile extends React.Component<Props, InternalState> {
             modalCopies: props.copies,
             issuedDate: '',
             returnDate: '',
-            issuedBookFlag: props.issuedBookFlag
+            issuedBookFlag: props.issuedBookFlag,
+            renewDate: '',
+            renewReturnDate: '',
+            renewBookFlag: props.renewBookFlag
         }
         this.closeButton = this.closeButton.bind(this);
         
@@ -87,6 +99,7 @@ class BookTile extends React.Component<Props, InternalState> {
         this.deleteBook=this.deleteBook.bind(this);
         this.cancelDelete=this.cancelDelete.bind(this);
         this.issueBook=this.issueBook.bind(this);
+        this.renewBook=this.renewBook.bind(this);
     }
 
     reset = () => {
@@ -174,10 +187,16 @@ class BookTile extends React.Component<Props, InternalState> {
     }
     
     componentDidMount(){
+        if(this.state.type === "Renew" ){
+            alert("hello");
+            
+        }
     this.setState({
             //todayDate: new Date(),
             issuedDate: new Date().toISOString().substr(0, 10),
-            returnDate: new Date(new Date().getFullYear(),new Date().getMonth(),new Date().getDate()+14).toISOString().substr(0, 10)
+            returnDate: new Date(new Date().getFullYear(),new Date().getMonth(),new Date().getDate()+14).toISOString().substr(0, 10),
+            renewReturnDate:  new Date(new Date().getFullYear(),new Date().getMonth(),new Date().getDate()+10).toISOString().substr(0, 10),
+            renewDate: new Date().toISOString().substr(0, 10)
         })
     
             
@@ -188,13 +207,35 @@ class BookTile extends React.Component<Props, InternalState> {
             issuedDate: this.state.issuedDate,
             returnDate: this.state.returnDate,
             id: this.state.id,
-            userId: this.state.profile.id!
+            userId: this.state.profile.id!,
+            issue_count: 1
         }
         this.props.issueBook(issuedBook);
     }
+    
+    returnBook = (event: any) =>{
+        event.preventDefault();
+        //const userId= this.state.profile.id!;
+        this.props.returnBook(this.state.id, this.state.profile.id!);
+
+        
+    }
+    
+    renewBook=(event: any) =>{
+        event.preventDefault();
+        const issuedBook: IssuedBook = {
+            issuedDate: this.state.renewDate,
+            returnDate: this.state.renewReturnDate,
+            id: this.state.id,
+            userId: this.state.profile.id!,
+            issue_count: 1
+        }
+        this.props.renewBook(issuedBook);
+    }
+    
     render() {
 
-        const {author, title, isbn, description, genre, id, profile, image, popUpOpen, type, issuedBookFlag } = this.state;
+        const {author, title, isbn, description, genre, id, profile, image, popUpOpen, type, issuedBookFlag, renewBookFlag } = this.state;
         const showAdminButtons: boolean = typeof profile !== 'undefined' && profile.role ==='ADMIN' ? true: false;
         return (
              <>
@@ -240,7 +281,7 @@ class BookTile extends React.Component<Props, InternalState> {
                                         onClick={() => this.openModalPopUp('Issue')}
                                     />
                                 </div>}
-                               {issuedBookFlag && <div>
+                               {issuedBookFlag && renewBookFlag &&<div>
                                     <img 
                                         style={{width: '45px', height: '45px', cursor: 'pointer'}} 
                                         src={process.env.PUBLIC_URL + '/images/reIssue.png'} 
@@ -326,6 +367,20 @@ class BookTile extends React.Component<Props, InternalState> {
                                 
                                 </div>}
                                 { type === 'Return' && <span>Are you sure to return the book?</span>}
+                                { type === 'Renew' && 
+                                    <div>
+                                    <span>{this.state.modalTitle}</span>
+                                    <div>
+                                    <div><span>RenewDate</span></div>
+                                    <div><input disabled type="date" min={this.state.renewDate} value={this.state.renewDate} max={this.state.renewDate}/></div>
+                                    </div>
+                                    <div>
+                                    <div><span>ReturnDate</span></div>
+                                    <div><input disabled  type="date" min={this.state.renewReturnDate} value={this.state.renewReturnDate} max={this.state.renewReturnDate}/></div>
+                                    </div>
+                                    
+                                    
+                                    </div>}
                             </Modal.Body>
 
                             <Modal.Footer>
@@ -415,6 +470,42 @@ class BookTile extends React.Component<Props, InternalState> {
                                 />
                                 </div>
                                 }
+                                { type === 'Return' &&
+                                    <div>
+                                        <input 
+                                    type="button" 
+                                    value="Return" 
+                                    style={{ 
+                                        height: '50px', 
+                                        width: '90px', 
+                                        fontSize: '18px', 
+                                        color:'white', 
+                                        backgroundColor:'#33adff',
+                                        border: 'none', 
+                                        borderRadius: '10px'
+                                    }}
+                                    onClick={this.returnBook}
+                                    />
+                                    </div>
+                                    }
+                                { type === 'Renew' &&
+                                    <div>
+                                    <input 
+                                        type="button"
+                                        value="Renew"
+                                        style={{ 
+                                        height: '50px', 
+                                        width: '90px', 
+                                        fontSize: '18px', 
+                                        color:'white', 
+                                        backgroundColor:'#33adff',
+                                        border: 'none', 
+                                        borderRadius: '10px'
+                                    }}
+                                    onClick={this.renewBook}
+                                    />
+                                    </div>
+                                }
                             </Modal.Footer>
                     </Modal>
                 </div>}
@@ -424,7 +515,7 @@ class BookTile extends React.Component<Props, InternalState> {
     }
     
     componentDidUpdate(prevProps: Props) {
-        console.log('entering here with ' + prevProps.issuedBookFlag + '->' + this.props.issuedBookFlag);
+       // console.log('entering here with ' + prevProps.profile.issued_books[0].issue_count + '->' + this.props.profile.issued_books[0].issue_count);
         const prev = prevProps;
         const current = this.props;
         const popUpOpenStatus = prev.updateStatus !== current.updateStatus;
@@ -445,7 +536,8 @@ class BookTile extends React.Component<Props, InternalState> {
                 modalDescription: this.props.description,
                 modalGenre: this.props.genre,
                 modalCopies: this.props.copies,
-                issuedBookFlag: this.props.issuedBookFlag
+                issuedBookFlag: this.props.issuedBookFlag,
+                renewBookFlag: this.props.renewBookFlag,
             });
         }
     }

@@ -77,3 +77,21 @@ export function bookIssueSuccessfull(state: boolean=false, action: any) {
     }
 
 }
+
+export function renewBookFail(state: string = '', action: any){
+    switch(action.type){
+        case 'LMS_BOOK_RENEW_FAILED':
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
+export function bookRenewSuccessful(state: boolean = false, action: any){
+    switch(action.type){
+        case 'LMS_BOOK_RENEW_SUCCESSFULL':
+            return action.payload;
+        default:
+            return state;
+    }
+}

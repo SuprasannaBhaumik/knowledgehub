@@ -36,7 +36,9 @@ class Register extends React.Component<Props, InternalState>{
 			first_name: this.state.first_name,
 			last_name: this.state.last_name,
 			email: this.state.email,
-			role: this.state.role
+			role: this.state.role,
+			issued_book: []
+			
 		}
 		this.props.registerUser(user);
 	};
